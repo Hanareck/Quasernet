@@ -42,14 +42,15 @@
 .streaming-links-synth { margin-top: 0.5rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .btn-streaming { display: inline-block; padding: 0.35rem 0.85rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; color: #fff; text-decoration: none; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); }
 .btn-streaming:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
-.btn-spotify { background: #1DB954; }
-.btn-spotify:hover { background: #159c41; }
+.btn-spotify { background: linear-gradient(135deg, #000000 0%, #1DB954 100%); }
+.btn-spotify:hover { background: linear-gradient(135deg, #ffffff91 0%, #1DB954 100%); }
 .btn-deezer { background: linear-gradient(135deg, #000000 0%, #FF0092 100%); }
-.btn-qobuz { background: #1E88E5; }
-.btn-qobuz:hover { background: #1976D2; }
+.btn-deezer:hover { background: linear-gradient(135deg, #ffffff91 0%, #FF0092 100%); }
+.btn-qobuz { background: linear-gradient(135deg, #000000 0%, #1E88E5 100%); }
+.btn-qobuz:hover { background: linear-gradient(135deg, #ffffff91 0%, #1E88E5 100%); }
 
 /* Bouton ajouter */
-.btn-ajouter { background: linear-gradient(135deg, var(--accent-pink) 0%, #f472b6 100%); color: white; border: none; padding: 0.875rem 1.5rem; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4); transition: all 0.3s ease; font-family: 'Inter', sans-serif; }
+.btn-ajouter { background: linear-gradient(135deg, var(--accent-pink) 0%, #f472b6 100%); color: rgb(0, 0, 0); border: none; padding: 0.875rem 1.5rem; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4); transition: all 0.3s ease; font-family: 'Inter', sans-serif; }
 .btn-ajouter:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5); }
 .btn-ajouter-fixed { position: fixed; bottom: 2rem; right: 2rem; z-index: 100; padding: 1rem 1.5rem; font-size: 1.1rem; box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5); }
 .btn-ajouter-fixed:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 8px 30px rgba(236, 72, 153, 0.6); }

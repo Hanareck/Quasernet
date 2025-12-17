@@ -50,10 +50,7 @@ function renderApp() {
                     &copy; ${new Date().getFullYear()} ${appName}. Tous droits réservés.
                 </div>
                 <div>
-                    Hébergement : Google Firebase
-                </div>
-                <div>
-                    Conception : Réalisé en grande partie à l'aide de d'un LLM : CLAUDE de Anthropic et à la marge avec ChatGPT de OpenAI.
+                    Hébergement : Google Firebase et netlify
                 </div>
             </div>
         </footer>

@@ -6,12 +6,12 @@ var CATEGORIES = {
     musique: { nom: 'Musique', icone: '🎵', genres: ['Pop', 'Rock', 'Jazz', 'Classique', 'Electro', 'Hip-Hop', 'R&B', 'Metal', 'Folk', 'Indie', 'World','Variete francaise', 'Autre'] },
     youtube: { nom: 'YouTube', icone: '📺', genres: ['Tutoriel', 'Documentaire', 'Gaming', 'Musique', 'Vlog', 'Science', 'Tech', 'Cuisine', 'Sport', 'Politique', 'Divertissement', 'Autre'] },
     actualite: { nom: 'Actus', icone: '📰', genres: ['Politique', 'Economie', 'Science', 'Tech', 'Culture', 'Sport', 'Environnement', 'Societe', 'International', 'Autre'] },
-    lieu: { nom: 'Lieux & Activites', icone: '📍', genres: ['Restaurant', 'Bar/Cafe', 'Musee', 'Parc', 'Monument', 'Randonnee', 'Sport', 'Spa/Bien-etre', 'Shopping', 'Spectacle', 'Festival', 'Voyage', 'Autre'] },
+    lieu: { nom: 'Lieux & Activites', icone: '📍', genres: ['Restaurant', 'Bar/Cafe', 'Musee', 'Parc', 'Monument', 'Randonnee', 'Sport', 'Spa/Bien-etre', 'Shopping', 'Spectacle', 'Festival', 'Voyage','Librairie', 'Autre'] },
     autre: { nom: 'Autres', icone: '✨', genres: ['Podcast', 'Serie TV', 'Jeu video', 'Exposition', 'Spectacle', 'Conference', 'Autre'] }
 };
 
-var STATUTS_LECTURE = ['Decouvert', 'En cours de decouverte', 'A decouvrir', 'A redecouvrir'];
-var STATUTS_POSSESSION = ['Possede', 'A acheter', 'A vendre', 'Vendu', 'Emprunte', 'Streaming'];
+var STATUTS_LECTURE = ['Découvert', 'En cours de découverte', 'A découvrir', 'A redécouvrir'];
+var STATUTS_POSSESSION = ['Possedé', ' A acheter', 'A vendre', 'Vendu', 'Emprunté', 'Streaming'];
 
 // GLOBALS
 
