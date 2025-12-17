@@ -2,7 +2,7 @@
 
 var CATEGORIES = {
     livre: { nom: 'Livres', icone: '📚', genres: ['Roman', 'Science-Fiction', 'Fantasy', 'Policier', 'Thriller', 'Biographie', 'Histoire', 'Philosophie', 'Science', 'Poesie', 'BD/Manga', 'Dev. perso', 'Autre'] },
-    film: { nom: 'Films', icone: '🎬', genres: ['Action', 'Comedie', 'Drame', 'SF', 'Horreur', 'Thriller', 'Animation', 'Documentaire', 'Romance', 'Aventure', 'Fantastique', 'Autre'] },
+    film: { nom: 'Films', icone: '🎬', genres: ['Action', 'Comedie', 'Drame', 'SF', 'Horreur', 'Thriller', 'Animation', 'Documentaire', 'Romance', 'Aventure', 'Fantastique','Western', 'Autre'] },
     musique: { nom: 'Musique', icone: '🎵', genres: ['Pop', 'Rock', 'Jazz', 'Classique', 'Electro', 'Hip-Hop', 'R&B', 'Metal', 'Folk', 'Indie', 'World','Variete francaise', 'Autre'] },
     actualite: { nom: 'Actus', icone: '📰', genres: ['Politique', 'Economie', 'Science', 'Tech', 'Culture', 'Sport', 'Environnement', 'Societe', 'International', 'Autre'] },
     autre: { nom: 'Autres', icone: '✨', genres: ['Podcast', 'Serie TV', 'Jeu video', 'Exposition', 'Spectacle', 'Conference', 'Autre'] }
