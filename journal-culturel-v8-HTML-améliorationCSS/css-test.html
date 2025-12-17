@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Test - Journal Culturel</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        body {
+            padding: 2rem;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+        .test-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Component Test</h1>
+    
+    <div class="test-section">
+        <div class="test-title">Variables Test</div>
+        <div style="color: var(--text-primary); background: var(--bg-primary); padding: 1rem; border-radius: 4px;">
+            Primary text on primary background
+        </div>
+        <div style="color: var(--text-secondary); background: var(--accent-primary); padding: 1rem; border-radius: 4px; margin-top: 0.5rem;">
+            Secondary text on accent background
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Auth Components</div>
+        <div class="auth-btn auth-btn-primary">Primary Button</div>
+        <div class="auth-btn auth-btn-secondary" style="margin-top: 0.5rem;">Secondary Button</div>
+        <input type="text" class="auth-input" placeholder="Auth Input" style="margin-top: 0.5rem;">
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Header Components</div>
+        <div class="header" style="margin: 0;">
+            <div class="header-content">
+                <div class="titre">Test Header</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon">🔔</button>
+                <button class="btn-icon">👤</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Navigation Components</div>
+        <div class="navigation" style="margin: 0;">
+            <button class="onglet actif">Active Tab</button>
+            <button class="onglet">Normal Tab</button>
+            <button class="onglet">Hover Me</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Grid Components</div>
+        <div class="grille" style="margin: 0;">
+            <div class="carte">
+                <div class="carte-couverture">
+                    <div class="carte-placeholder">📚</div>
+                </div>
+                <div class="carte-contenu">
+                    <div class="carte-titre">Test Card Title</div>
+                    <div class="carte-auteur">Test Author</div>
+                    <div class="carte-badge a-decouvrir">À découvrir</div>
+                </div>
+            </div>
+            <div class="carte">
+                <div class="carte-couverture">
+                    <div class="carte-placeholder">🎵</div>
+                </div>
+                <div class="carte-contenu">
+                    <div class="carte-titre">Another Card</div>
+                    <div class="carte-auteur">Another Author</div>
+                    <div class="carte-badge a-acheter">À acheter</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Form Components</div>
+        <input type="text" class="input" placeholder="Regular Input">
+        <textarea class="textarea" placeholder="Textarea" style="margin-top: 0.5rem; height: 80px;"></textarea>
+        <button class="btn-soumettre" style="margin-top: 0.5rem;">Submit Button</button>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Alerts Test</div>
+        <div class="alerte-card alerte-normal">
+            <div class="alerte-couverture">
+                <div class="alerte-placeholder">📚</div>
+            </div>
+            <div class="alerte-info">
+                <div class="alerte-titre">Test Alert</div>
+                <div class="alerte-auteur">Test Author</div>
+                <div class="alerte-date">
+                    <span class="alerte-icone-date">📅</span>
+                    <span>Today</span>
+                </div>
+            </div>
+            <div class="alerte-countdown">
+                <div class="alerte-countdown-number">5</div>
+                <div class="alerte-countdown-label">days left</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Tags Test</div>
+        <div class="tag-badge">
+            <span>Test Tag</span>
+            <button class="tag-remove">×</button>
+        </div>
+        <button class="btn-ajouter-tag">+</button>
+        <div class="tag-suggestion-btn">Suggested Tag</div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Pile Test</div>
+        <div class="pile-item">
+            <div class="pile-item-couverture">
+                <div class="pile-item-placeholder">🎵</div>
+            </div>
+            <div class="pile-item-info">
+                <div class="pile-item-titre">Test Pile Item</div>
+                <div class="pile-item-auteur">Test Author</div>
+                <div class="pile-item-badge en-cours">En cours</div>
+            </div>
+            <button class="pile-item-action">+</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Responsive Test</div>
+        <div style="color: var(--text-muted); font-size: 0.9rem;">
+            Try resizing the browser window to test responsive behavior.
+        </div>
+    </div>
+</body>
+</html>

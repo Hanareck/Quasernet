@@ -1,0 +1,25 @@
+/* Contact Styles - Journal Culturel v8 */
+/* Contact Form */
+.contact-container { max-width: 700px; margin: 0 auto; padding: 2rem; }
+.contact-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.contact-titre { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); margin: 0; }
+.contact-content { background: var(--bg-card); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow-sm); }
+.contact-intro { font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem; text-align: center; }
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.contact-actions { display: flex; gap: 1rem; margin-top: 1rem; }
+.btn-annuler { flex: 1; padding: 0.875rem 1.5rem; background: var(--bg-hover); color: var(--text-primary); border: 2px solid var(--border-color); border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+.btn-annuler:hover { background: var(--border-color); }
+.btn-envoyer { flex: 1; padding: 0.875rem 1.5rem; background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; }
+.btn-envoyer:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
+.btn-envoyer:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.contact-info { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); text-align: center; }
+.contact-info-text { font-size: 0.9rem; color: var(--text-muted); }
+.contact-info-text a { color: var(--accent-primary); text-decoration: underline; }
+.btn-link-footer { background: none; border: none; color: var(--accent-primary); cursor: pointer; text-decoration: underline; font-family: inherit; font-size: inherit; padding: 0; }
+.btn-link-footer:hover { color: var(--accent-secondary); }
+
+@media (max-width: 768px) {
+    .contact-container { padding: 1rem; }
+    .contact-content { padding: 1.5rem; }
+    .contact-actions { flex-direction: column; }
+}

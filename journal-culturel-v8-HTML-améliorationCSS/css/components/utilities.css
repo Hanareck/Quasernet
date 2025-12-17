@@ -1,0 +1,80 @@
+/* Utilities Styles - Journal Culturel v8 */
+/* Vide */
+.vide { text-align: center; padding: 3rem 2rem; background: var(--bg-card); border-radius: 14px; }
+.vide-icone { font-size: 3rem; margin-bottom: 0.75rem; }
+.vide h3 { margin: 0 0 0.5rem; color: var(--text-primary); font-size: 1.1rem; }
+.vide p { color: var(--text-secondary); font-size: 0.9rem; }
+.btn-action { margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; }
+
+/* Pagination */
+.btn-voir-plus { padding: 0.875rem 2rem; background: var(--accent-primary); color: white; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; box-shadow: var(--shadow-sm); }
+.btn-voir-plus:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* Etoiles */
+.etoiles { display: flex; gap: 1px; }
+.etoile { font-size: 1.1rem; color: var(--star-inactive); cursor: default; transition: transform 0.2s, color 0.2s; user-select: none; }
+.etoile.active { color: var(--star-active); }
+.etoile.interactive { cursor: pointer; }
+.etoile.interactive:hover { transform: scale(1.2); }
+.etoiles-small .etoile { font-size: 0.9rem; }
+
+/* Toast */
+.toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--bg-card); color: var(--text-primary); padding: 0.875rem 1.25rem; border-radius: 10px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.5rem; z-index: 1001; animation: slideIn 0.3s ease; font-size: 0.9rem; }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* Sync */
+.sync-indicator { position: fixed; top: 0.75rem; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 0.375rem 0.875rem; border-radius: 50px; box-shadow: var(--shadow-md); font-size: 0.8rem; color: var(--text-secondary); z-index: 1000; display: flex; align-items: center; gap: 0.375rem; }
+.sync-spinner { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* YouTube */
+.youtube-link-wrapper { position: relative; display: block; cursor: pointer; }
+.youtube-link-wrapper:hover .youtube-play-overlay { background: rgba(0,0,0,0.5); }
+.youtube-link-wrapper:hover .youtube-play-button { transform: scale(1.1); }
+.youtube-play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); transition: all 0.3s; border-radius: 8px; }
+.youtube-play-button { width: 80px; height: 80px; background: #ff0000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; transition: all 0.3s; padding-left: 6px; }
+.btn-youtube { display: inline-block; margin-top: 12px; padding: 8px 16px; background: #ff0000; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: background 0.2s; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+.btn-youtube:hover { background: #cc0000; }
+
+/* Streaming Links */
+.streaming-links { margin-top: 12px; display: flex; flex-direction: column; gap: 0.5rem; }
+.streaming-type { font-size: 0.85rem; color: var(--text-secondary); margin: 0 0 0.25rem 0; font-weight: 500; }
+.streaming-links-synth { margin-top: 0.5rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.btn-streaming { display: inline-block; padding: 0.35rem 0.85rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; color: #fff; text-decoration: none; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); }
+.btn-streaming:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
+.btn-spotify { background: #1DB954; }
+.btn-spotify:hover { background: #159c41; }
+.btn-deezer { background: linear-gradient(135deg, #000000 0%, #FF0092 100%); }
+.btn-qobuz { background: #1E88E5; }
+.btn-qobuz:hover { background: #1976D2; }
+
+/* Bouton ajouter */
+.btn-ajouter { background: linear-gradient(135deg, var(--accent-pink) 0%, #f472b6 100%); color: white; border: none; padding: 0.875rem 1.5rem; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4); transition: all 0.3s ease; font-family: 'Inter', sans-serif; }
+.btn-ajouter:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5); }
+.btn-ajouter-fixed { position: fixed; bottom: 2rem; right: 2rem; z-index: 100; padding: 1rem 1.5rem; font-size: 1.1rem; box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5); }
+.btn-ajouter-fixed:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 8px 30px rgba(236, 72, 153, 0.6); }
+
+/* Checkbox dans les vignettes */
+.checkbox-container {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.checkbox-container input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Etat selectionne */
+.liste-item.selectionnee,
+.carte.selectionnee {
+    outline: 3px solid var(--primary-color);
+    outline-offset: -3px;
+}

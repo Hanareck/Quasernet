@@ -1,0 +1,66 @@
+/* CSS Variables - Journal Culturel v8 */
+:root {
+    --bg-primary: #f8fafc;
+    --bg-gradient-end: #ffffff;
+    --bg-card: #ffffff;
+    --bg-input: #ffffff;
+    --bg-hover: #f9fafb;
+    --bg-placeholder: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --border-color: #e5e7eb;
+    --border-focus: #312e81;
+    --accent-primary: #312e81;
+    --accent-secondary: #4338ca;
+    --accent-pink: #ec4899;
+    --accent-green: #10b981;
+    --accent-orange: #f59e0b;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --accent-red: #ef4444;
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.15);
+    --header-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    --nav-bg: #ffffff;
+    --star-active: #f59e0b;
+    --star-inactive: #d1d5db;
+    --danger-bg: #fee2e2;
+    --danger-text: #dc2626;
+    --badge-bg: #f3f4f6;
+    --badge-text: #4b5563;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-gradient-end: #1e293b;
+    --bg-card: #1e1e32;
+    --bg-input: #252540;
+    --bg-hover: #2a2a45;
+    --bg-placeholder: linear-gradient(135deg, #2a2a45 0%, #1e1e32 100%);
+    --text-primary: #f3f4f6;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --border-focus: #818cf8;
+    --accent-primary: #818cf8;
+    --accent-secondary: #a5b4fc;
+    --accent-pink: #f472b6;
+    --accent-green: #34d399;
+    --accent-orange: #fbbf24;
+    --accent-blue: #60a5fa;
+    --accent-purple: #a78bfa;
+    --accent-red: #f87171;
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.5);
+    --header-bg: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+    --nav-bg: #1e1e32;
+    --star-active: #fbbf24;
+    --star-inactive: #4b5563;
+    --danger-bg: #450a0a;
+    --danger-text: #fca5a5;
+    --badge-bg: #374151;
+    --badge-text: #d1d5db;
+}
