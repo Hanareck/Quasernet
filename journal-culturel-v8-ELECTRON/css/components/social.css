@@ -1,0 +1,133 @@
+/* Social Styles - Journal Culturel v8 */
+/* Amis */
+.amis-container, .settings-container, .catalogue-container, .fil-container, .notifications-container { background: var(--bg-card); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-md); max-width: 900px; margin: 0 auto; }
+.amis-header, .settings-header, .catalogue-header, .fil-header, .notifications-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--border-color); }
+.amis-titre, .settings-titre, .catalogue-titre, .fil-titre, .notifications-titre { font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.25rem; }
+.amis-subtitle, .settings-subtitle, .catalogue-subtitle, .fil-subtitle, .notifications-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+.section-titre { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; }
+.section-description { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+.section-warning {
+    font-size: 0.85rem;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #f59e0b;
+    margin-bottom: 0.75rem;
+}
+.section-info {
+    font-size: 0.85rem;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #10b981;
+    margin-bottom: 0.75rem;
+}
+
+/* Mon profil */
+.mon-profil-section { background: var(--bg-hover); padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem; }
+.profil-info { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+.profil-item { display: flex; gap: 0.5rem; }
+.profil-label { color: var(--text-muted); font-size: 0.85rem; }
+.profil-value { color: var(--text-primary); font-weight: 600; font-size: 0.85rem; }
+.code-description { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+
+/* Ajouter ami */
+.ajouter-ami-section { background: var(--bg-hover); padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem; }
+.ajouter-ami-form { display: flex; gap: 0.5rem; }
+.input-ami { flex: 1; }
+.btn-ajouter-ami { padding: 0.75rem 1.25rem; background: var(--accent-green); color: white; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: 'Inter', sans-serif; }
+.btn-ajouter-ami:hover { opacity: 0.9; }
+
+/* Liste amis */
+.liste-amis-section { margin-top: 1.5rem; }
+.amis-liste { display: flex; flex-direction: column; gap: 0.75rem; }
+.ami-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-hover); border-radius: 10px; transition: all 0.2s; }
+.ami-item:hover { background: var(--bg-input); }
+.ami-info { flex: 1; }
+.ami-pseudo { font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
+.ami-email { font-size: 0.8rem; color: var(--text-muted); }
+.ami-actions { display: flex; gap: 0.5rem; align-items: center; }
+.btn-voir-catalogue { padding: 0.5rem 1rem; background: var(--accent-primary); color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer; font-family: 'Inter', sans-serif; }
+.btn-retirer { background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 0.5rem; opacity: 0.6; transition: opacity 0.2s; }
+.btn-retirer:hover { opacity: 1; }
+
+/* Catalogue */
+.catalogue-stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.catalogue-stat { background: var(--bg-hover); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; }
+.catalogue-filtres { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.catalogue-grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.carte-ami .carte-couverture { height: 140px; }
+
+/* Fil d'actualite */
+.fil-liste { display: flex; flex-direction: column; gap: 1rem; }
+.fil-item { background: var(--bg-hover); border-radius: 12px; padding: 1rem; cursor: pointer; transition: all 0.2s; }
+.fil-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.fil-item-header { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
+.fil-item-user { font-weight: 600; color: var(--accent-primary); font-size: 0.85rem; }
+.fil-item-date { color: var(--text-muted); font-size: 0.8rem; }
+.fil-item-content { display: flex; gap: 1rem; }
+.fil-item-cover { width: 80px; height: 100px; border-radius: 6px; overflow: hidden; background: var(--bg-placeholder); flex-shrink: 0; }
+.fil-item-cover img { width: 100%; height: 100%; object-fit: cover; }
+.fil-item-cover-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+.fil-item-info { flex: 1; min-width: 0; }
+.fil-item-badges { display: flex; gap: 0.25rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.fil-item-titre { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
+.fil-item-auteur { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.fil-item-critique { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem; }
+
+/* Notifications */
+.notifications-liste { display: flex; flex-direction: column; gap: 0.75rem; }
+.notif-item { display: flex; gap: 1rem; padding: 1rem; background: var(--bg-hover); border-radius: 10px; }
+.notif-icon { font-size: 1.5rem; }
+.notif-content { flex: 1; }
+.notif-texte { color: var(--text-primary); font-size: 0.9rem; margin-bottom: 0.25rem; }
+.notif-commentaire-texte { color: var(--text-muted); font-size: 0.85rem; font-style: italic; margin: 0.25rem 0; }
+.notif-date { color: var(--text-muted); font-size: 0.75rem; }
+
+/* Éléments non vus */
+.non-vu { position: relative; border-left: 4px solid var(--accent-primary); background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, transparent 100%); }
+.fil-item.non-vu:hover { border-left-color: var(--accent-primary); }
+.notif-item.non-vu { border-left-color: var(--accent-primary); }
+
+/* Bouton épingler */
+.btn-epingler { background: transparent; border: none; font-size: 1rem; cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 6px; transition: all 0.2s; opacity: 0.4; margin-left: 0.5rem; }
+.btn-epingler:hover { opacity: 1; background: rgba(99, 102, 241, 0.1); }
+.btn-epingler.actif { opacity: 0.7; transform: rotate(45deg); }
+.btn-epingler.actif:hover { opacity: 1; }
+.fil-item-header-right { display: flex; align-items: center; gap: 0.5rem; }
+
+/* Settings */
+.settings-section { background: var(--bg-hover); padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem; }
+.settings-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.btn-settings { padding: 0.75rem 1.25rem; background: var(--accent-primary); color: white; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+.btn-settings:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-settings-warning { background: var(--accent-orange); }
+.btn-settings-danger { background: var(--danger-text); }
+.settings-success { background: var(--accent-green); color: white; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem; font-family: 'Inter', sans-serif; }
+.settings-danger { border: 2px dashed var(--danger-text); }
+
+/* Social Container */
+.social-container { background: var(--bg-card); border-radius: 16px; padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+
+/* Social Navigation */
+.social-nav { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--bg-hover); padding-bottom: 0.5rem; }
+.social-tab { background: none; border: none; padding: 0.75rem 1.25rem; font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-radius: 8px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+.social-tab:hover { background: var(--bg-hover); color: var(--text-primary); }
+.social-tab.actif { background: var(--accent-primary); color: white; }
+
+/* Social Content */
+.social-contenu { min-height: 400px; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .ami-item { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .ami-actions { width: 100%; justify-content: space-between; }
+    .fil-item-content { flex-direction: column; }
+    .fil-item-cover { width: 100%; height: 150px; }
+}
+
+@media (max-width: 768px) {
+    .catalogue-grille { grid-template-columns: 1fr 1fr; }
+}

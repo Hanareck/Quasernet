@@ -6,12 +6,18 @@ var CATEGORIES = {
     musique: { nom: 'Musique', icone: '🎵', genres: ['Pop', 'Rock', 'Jazz', 'Classique', 'Electro', 'Hip-Hop', 'R&B', 'Metal', 'Folk', 'Indie', 'World','Variete francaise', 'Autre'] },
     youtube: { nom: 'YouTube', icone: '📺', genres: ['Tutoriel', 'Documentaire', 'Gaming', 'Musique', 'Vlog', 'Science', 'Tech', 'Cuisine', 'Sport', 'Politique', 'Divertissement', 'Autre'] },
     actualite: { nom: 'Actus', icone: '📰', genres: ['Politique', 'Economie', 'Science', 'Tech', 'Culture', 'Sport', 'Environnement', 'Societe', 'International', 'Autre'] },
-    lieu: { nom: 'Lieux & Activites', icone: '📍', genres: ['Restaurant', 'Bar/Cafe', 'Musee', 'Parc', 'Monument', 'Randonnee', 'Sport', 'Spa/Bien-etre', 'Shopping', 'Spectacle', 'Festival', 'Voyage', 'Autre'] },
+    lieu: { nom: 'Lieux & Activites', icone: '📍', genres: ['Restaurant', 'Bar/Cafe', 'Musee', 'Parc', 'Monument', 'Randonnee', 'Sport', 'Spa/Bien-etre', 'Shopping', 'Spectacle', 'Festival', 'Voyage','Librairie', 'Autre'] },
     autre: { nom: 'Autres', icone: '✨', genres: ['Podcast', 'Serie TV', 'Jeu video', 'Exposition', 'Spectacle', 'Conference', 'Autre'] }
 };
 
 var STATUTS_LECTURE = ['Decouvert', 'En cours de decouverte', 'A decouvrir', 'A redecouvrir'];
-var STATUTS_POSSESSION = ['Possede', 'A acheter', 'A vendre', 'Vendu', 'Emprunte', 'Streaming'];
+var STATUTS_LECTURE_LABELS = {
+    'Decouvert': 'Découvert',
+    'En cours de decouverte': 'En cours de découverte',
+    'A decouvrir': 'À découvrir',
+    'A redecouvrir': 'À redécouvrir'
+};
+var STATUTS_POSSESSION = ['Possedé', ' A acheter', 'A vendre', 'Vendu', 'Emprunté', 'Streaming'];
 
 // GLOBALS
 
@@ -266,6 +272,58 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// Fermer les dropdowns de recherche quand on clique en dehors
+document.addEventListener('click', function(e) {
+    var titleInput = document.getElementById('form-titre-input');
+    var auteurInput = document.getElementById('form-auteur-input');
+
+    // Fermer dropdown Open Library
+    if (state.dropdownOpenLibraryVisible) {
+        var clickedInsideOL = e.target.closest('.openlibrary-dropdown') ||
+                             e.target.closest('.openlibrary-dropdown-empty') ||
+                             (titleInput && titleInput.contains(e.target)) ||
+                             (auteurInput && auteurInput.contains(e.target)) ||
+                             (e.target.title && e.target.title.indexOf('Open Library') !== -1);
+        if (!clickedInsideOL) {
+            fermerDropdownOpenLibrary();
+        }
+    }
+
+    // Fermer dropdown OMDB
+    if (state.dropdownOMDBVisible) {
+        var clickedInsideOMDB = e.target.closest('.openlibrary-dropdown') ||
+                               e.target.closest('.openlibrary-dropdown-empty') ||
+                               (titleInput && titleInput.contains(e.target)) ||
+                               (e.target.title && e.target.title.indexOf('OMDB') !== -1);
+        if (!clickedInsideOMDB) {
+            fermerDropdownOMDB();
+        }
+    }
+
+    // Fermer dropdown iTunes
+    if (state.dropdownItunesVisible) {
+        var clickedInsideItunes = e.target.closest('.openlibrary-dropdown') ||
+                                 e.target.closest('.openlibrary-dropdown-empty') ||
+                                 (titleInput && titleInput.contains(e.target)) ||
+                                 (auteurInput && auteurInput.contains(e.target)) ||
+                                 (e.target.title && e.target.title.indexOf('iTunes') !== -1);
+        if (!clickedInsideItunes) {
+            fermerDropdownItunes();
+        }
+    }
+
+    // Fermer dropdown YouTube
+    if (state.dropdownYoutubeVisible) {
+        var clickedInsideYoutube = e.target.closest('.openlibrary-dropdown') ||
+                                  e.target.closest('.openlibrary-dropdown-empty') ||
+                                  (titleInput && titleInput.contains(e.target)) ||
+                                  (e.target.title && e.target.title.indexOf('YouTube') !== -1);
+        if (!clickedInsideYoutube) {
+            fermerDropdownYoutube();
+        }
+    }
+});
+
 window.setVue = function(v) {
     state.vue = v;
     state.vueSource = null;
@@ -318,6 +376,10 @@ window.setRechercheTagExport = function(v) {
 
 window.setTri = function(v) { state.tri = v; render(); };
 window.setModeAffichage = function(m) { state.modeAffichage = m; localStorage.setItem('journal-mode-affichage', m); render(); };
+window.toggleModeAffichage = function() {
+    var nouveauMode = state.modeAffichage === 'grille' ? 'liste' : 'grille';
+    setModeAffichage(nouveauMode);
+};
 
 // Toggle panneau de filtres
 window.togglePanneauFiltres = function() {
@@ -834,7 +896,33 @@ window.retirerTag = function(tag) {
     render();
 };
 
-window.soumettreFormulaire = async function() {
+window.confirmerAjoutMalgreDoublons = function() {
+    var entree = state.modalDoublons ? state.modalDoublons.entree : null;
+    state.modalDoublons = null;
+
+    if (state.modeImport && state.importResolve) {
+        state.importResolve(true);
+        state.importResolve = null;
+        state.importReject = null;
+    } else {
+        render();
+        soumettreFormulaire(true);
+    }
+};
+
+window.annulerAjoutDoublon = function() {
+    state.modalDoublons = null;
+
+    if (state.modeImport && state.importReject) {
+        state.importReject(false);
+        state.importResolve = null;
+        state.importReject = null;
+    } else {
+        render();
+    }
+};
+
+window.soumettreFormulaire = async function(ignorerDoublons) {
     if (!state.formulaire.titre.trim()) { afficherToast('Titre requis'); return; }
 
     var entree = Object.assign({}, state.formulaire, {
@@ -842,6 +930,21 @@ window.soumettreFormulaire = async function() {
     });
 
     if (state.modeEdition && state.entreeSelectionnee) entree.id = state.entreeSelectionnee.id;
+
+    // Vérifier les doublons (seulement pour les nouveaux ajouts ou si pas déjà ignoré)
+    if (!ignorerDoublons && !state.modeEdition) {
+        var doublons = detecterDoublons(entree);
+        var totalDoublons = doublons.exacts.length + doublons.probables.length + doublons.possibles.length;
+
+        if (totalDoublons > 0) {
+            state.modalDoublons = {
+                entree: entree,
+                doublons: doublons
+            };
+            render();
+            return;
+        }
+    }
 
     // Si c'est un nouvel ajout "A decouvrir", calculer l'ordre pour qu'il aille en bas de la liste
     if (!state.modeEdition && entree.statutLecture === 'A decouvrir') {
@@ -1066,17 +1169,7 @@ function getEntreesFiltreesPaginated() {
 window.getEntreesFiltreesPaginated = getEntreesFiltreesPaginated;
 
 // Demarrage
-// Si mode local deja choisi, initialiser
-if (state.mode === 'local') {
-    // Vérifier si on est dans Electron
-    if (typeof window.electron !== 'undefined' && window.electron.isElectron) {
-        initialiserModeElectron();
-    } else {
-        initialiserModeLocal();
-    }
-} else {
-    render();
-}
+render();
 
 // AUTH STATE CHANGE
 if (firebaseInitialized) {
@@ -1085,10 +1178,6 @@ if (firebaseInitialized) {
         state.authLoading = false;
         state.authError = null;
         if (user) {
-            // Si user Firebase existe → forcer le mode cloud
-            if (!state.mode) {
-                setMode('cloud');
-            }
             try {
                 var userDoc = await db.collection('users').doc(user.uid).get();
                 if (userDoc.exists) {
@@ -1459,4 +1548,133 @@ window.changerStatutDetail = function(entreeId, nouveauStatut) {
         afficherToast('Erreur de sauvegarde');
         render();
     });
+};
+
+// ========== RACCOURCIS CLAVIER ==========
+
+document.addEventListener('keydown', function(e) {
+    // Ignorer les raccourcis si on est dans un input/textarea ou si une modal est ouverte en mode edition
+    var isInputFocused = document.activeElement.tagName === 'INPUT' ||
+                        document.activeElement.tagName === 'TEXTAREA' ||
+                        document.activeElement.tagName === 'SELECT' ||
+                        document.activeElement.isContentEditable;
+
+    // Exception : Escape fonctionne toujours
+    if (e.key === 'Escape') {
+        e.preventDefault();
+        if (state.modalDoublons) {
+            annulerAjoutDoublon();
+        } else if (state.modalRaccourcis) {
+            toggleModalRaccourcis();
+        } else if (state.modalPile) {
+            window.fermerModalPile();
+        } else if (state.vue === 'detail') {
+            retourListe();
+        } else if (state.vue === 'formulaire') {
+            annulerFormulaire();
+        } else if (state.panneauFiltresOuvert) {
+            togglePanneauFiltres();
+        }
+        return;
+    }
+
+    // Pour les autres raccourcis, ignorer si on est dans un input
+    if (isInputFocused) return;
+
+    // Ajouter un produit : + ou A
+    if ((e.key === '+' || e.key === 'a' || e.key === 'A') && state.vue === 'liste') {
+        e.preventDefault();
+        ouvrirAjout();
+        return;
+    }
+
+    // Ajout rapide dans la pile : + ou A
+    if ((e.key === '+' || e.key === 'a' || e.key === 'A') && state.vue === 'pile') {
+        e.preventDefault();
+        ouvrirAjoutRapideDecouvrir();
+        return;
+    }
+
+    // Focus sur la recherche : /
+    if (e.key === '/') {
+        e.preventDefault();
+        var searchInput = document.querySelector('.recherche-input');
+        if (searchInput) searchInput.focus();
+        return;
+    }
+
+    // Ouvrir les stats : S
+    if (e.key === 's' || e.key === 'S') {
+        e.preventDefault();
+        setVue('stats');
+        return;
+    }
+
+    // Ouvrir la pile : P
+    if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        setVue('pile');
+        return;
+    }
+
+    // Toggle filtres : F
+    if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        togglePanneauFiltres();
+        return;
+    }
+
+    // Filtrer par note : 1-5
+    if (['1', '2', '3', '4', '5'].indexOf(e.key) !== -1 && state.vue === 'liste') {
+        e.preventDefault();
+        var note = parseInt(e.key);
+        if (state.filtreNotes.indexOf(note) !== -1) {
+            state.filtreNotes = state.filtreNotes.filter(function(n) { return n !== note; });
+        } else {
+            state.filtreNotes.push(note);
+        }
+        render();
+        return;
+    }
+
+    // Retour à la vue liste : L
+    if (e.key === 'l' || e.key === 'L') {
+        e.preventDefault();
+        setCategorie('tous');
+        return;
+    }
+
+    // Ouvrir social : O
+    if (e.key === 'o' || e.key === 'O') {
+        e.preventDefault();
+        setVue('social');
+        return;
+    }
+
+    // Import/Export : I
+    if (e.key === 'i' || e.key === 'I') {
+        e.preventDefault();
+        setVue('importExport');
+        return;
+    }
+
+    // Toggle mode affichage grille/liste : G
+    if (e.key === 'g' || e.key === 'G') {
+        e.preventDefault();
+        toggleModeAffichage();
+        return;
+    }
+
+    // Afficher l'aide des raccourcis : ?
+    if (e.key === '?' && !e.shiftKey) {
+        e.preventDefault();
+        toggleModalRaccourcis();
+        return;
+    }
+});
+
+// Fonction pour afficher/masquer la modal des raccourcis
+window.toggleModalRaccourcis = function() {
+    state.modalRaccourcis = !state.modalRaccourcis;
+    render();
 };

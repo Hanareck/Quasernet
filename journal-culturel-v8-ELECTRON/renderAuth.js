@@ -1,11 +1,7 @@
 function renderAuth() {
     return '<div class="auth-container"><div class="auth-card">' +
         '<div class="auth-header">' +
-            '<div class="auth-logo">📖</div>' +
-            '<div class="auth-text">' +
-                '<h1 class="auth-title">Quasernet</h1>' +
-                '<p class="auth-slogan">Mon Journal Culturel</p>' +
-            '</div>' +
+            '<img src="logo/logo5.png" alt="Quasernet - Journal Culturel" class="auth-logo-img">' +
         '</div>' +
         '<p class="auth-subtitle">' + (state.authMode === 'login' ? 'Connectez-vous' : 'Creez votre compte') + '</p>' +
         (state.authError ? '<div class="auth-error">' + state.authError + '</div>' : '') +

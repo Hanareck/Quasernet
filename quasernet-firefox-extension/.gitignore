@@ -1,0 +1,28 @@
+# Extension artifacts
+web-ext-artifacts/
+*.xpi
+*.zip
+
+# Temporary icons (if using generated ones)
+icons/*.tmp
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.backup
+*.bak
+
+# Local configuration (if any)
+local-config.json

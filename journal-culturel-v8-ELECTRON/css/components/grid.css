@@ -1,0 +1,36 @@
+/* Grid Styles - Journal Culturel v8 */
+.grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.carte { background: var(--bg-card); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: all 0.3s ease; position: relative; }
+.carte:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.carte-couverture { height: 160px; position: relative; background: var(--bg-placeholder); }
+.carte-image { width: 100%; height: 100%; object-fit: cover; }
+.carte-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+.carte-badges { position: absolute; top: 0.5rem; right: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-end; }
+.carte-badge { background: var(--bg-card); padding: 0.3rem 0.65rem; border-radius: 50px; font-size: 0.75rem; box-shadow: var(--shadow-sm); font-family: 'Inter', sans-serif; }
+.carte-badge.a-decouvrir { background: var(--accent-orange); color: white; }
+.carte-badge.a-acheter { background: var(--accent-blue); color: white; }
+.carte-badge.a-vendre { background: var(--accent-green); color: white; }
+.carte-badge.emprunte { background: var(--accent-purple); color: white; }
+.carte-badge.streaming { background: black; color: white; }
+.carte-badge.prive { background: var(--text-muted); color: white; }
+.carte-contenu { padding: 1rem; }
+.carte-titre { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.carte-auteur { margin: 0 0 0.5rem; color: var(--text-secondary); font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.carte-genre { margin: 0 0 0.5rem; color: var(--text-muted); font-size: 0.75rem; }
+.carte-genres { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.carte-genre-tag { display: inline-block; padding: 0.15rem 0.5rem; background: var(--bg-hover); border-radius: 12px; font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+.carte-tag-tag { display: inline-block; padding: 0.15rem 0.5rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; font-size: 0.7rem; color: var(--accent-purple); font-weight: 500; }
+.carte-meta { display: flex; justify-content: space-between; align-items: center; }
+.carte-date { font-size: 0.75rem; color: var(--text-muted); font-family: 'Inter', sans-serif; }
+.carte-social { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted); }
+.carte-likes.liked { color: var(--accent-red); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grille { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .carte-couverture { height: 140px; }
+}
+
+@media (max-width: 500px) {
+    .grille { grid-template-columns: 1fr; }
+}

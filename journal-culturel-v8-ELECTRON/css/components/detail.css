@@ -1,0 +1,101 @@
+/* Detail Styles - Journal Culturel v8 */
+.detail-container { background: var(--bg-card); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-md); }
+.detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; gap: 1rem; flex-wrap: wrap; }
+.btn-retour { background: none; border: none; color: var(--text-secondary); font-size: 0.95rem; cursor: pointer; padding: 0.5rem 0; font-family: inherit; transition: color 0.2s; }
+.btn-retour:hover { color: var(--text-primary); }
+.detail-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.detail-owner { color: var(--text-muted); font-size: 0.9rem; }
+.btn-modifier { background: var(--accent-green); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.2s; }
+.btn-modifier:hover { opacity: 0.9; }
+.btn-supprimer-header { background: var(--danger-bg); color: var(--danger-text); border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-family: 'Inter', sans-serif; transition: opacity 0.2s; }
+.btn-supprimer-header:hover { opacity: 0.8; }
+.detail-content { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; }
+@media (max-width: 700px) { .detail-content { grid-template-columns: 1fr; } }
+.detail-couverture { aspect-ratio: 2/3; border-radius: 10px; overflow: hidden; background: var(--bg-placeholder); }
+.detail-image { width: 100%; height: 100%; object-fit: cover; }
+.detail-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+.detail-info { display: flex; flex-direction: column; gap: 0.75rem; }
+.detail-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.detail-badges .streaming-links-synth { margin-top: 0; display: contents; }
+.badge { display: inline-block; padding: 0.35rem 0.85rem; background: var(--badge-bg); border-radius: 50px; font-size: 0.8rem; color: var(--badge-text); font-family: 'Inter', sans-serif; font-weight: 600; line-height: 1; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); }
+.badge-tag { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%); border: 1px solid rgba(139, 92, 246, 0.4); color: var(--accent-purple); }
+.badge.a-decouvrir { background: var(--accent-orange); color: white; }
+.badge.a-acheter { background: var(--accent-blue); color: white; }
+.badge.a-vendre { background: var(--accent-green); color: white; }
+.badge.emprunte { background: var(--accent-purple); color: white; }
+.badge.prive { background: var(--text-muted); color: white; }
+.badge.public { background: var(--accent-green); color: white; }
+.badge.streaming { background: black; color: white; }
+.detail-titre { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+.detail-auteur { font-size: 1.1rem; color: var(--text-secondary); }
+.detail-meta { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+.detail-date { color: var(--text-muted); font-size: 0.9rem; font-family: 'Inter', sans-serif; }
+.detail-rappel { background: var(--accent-purple); color: white; padding: 0.5rem 0.75rem; border-radius: 8px; font-size: 0.85rem; font-family: 'Inter', sans-serif; }
+.detail-critique { margin-top: 0.5rem; }
+.critique-label { margin: 0 0 0.5rem; font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+.critique-texte { color: var(--text-secondary); line-height: 1.6; font-size: 1rem; white-space: pre-wrap; }
+
+/* Status selector in detail view */
+.detail-statut-section {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+}
+
+.detail-section-titre {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+}
+
+.statut-selector {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.statut-btn {
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.statut-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary-color);
+}
+
+.statut-btn.actif {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+/* Social section */
+.social-section { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+.like-section { margin-bottom: 1rem; }
+.btn-like { padding: 0.75rem 1.5rem; border: 2px solid var(--border-color); border-radius: 50px; background: var(--bg-input); cursor: pointer; font-size: 1rem; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+.btn-like:hover { border-color: var(--accent-red); }
+.btn-like.liked { background: var(--accent-red); color: white; border-color: var(--accent-red); }
+.commentaires-section { margin-top: 1rem; }
+.commentaires-titre { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; }
+.commentaire-form { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.commentaire-input { flex: 1; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; background: var(--bg-input); color: var(--text-primary); font-family: inherit; }
+.commentaire-btn { padding: 0.75rem 1.25rem; background: var(--accent-primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; }
+.commentaires-liste { display: flex; flex-direction: column; gap: 0.75rem; }
+.commentaire { background: var(--bg-hover); padding: 0.75rem; border-radius: 8px; }
+.commentaire-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+.commentaire-pseudo { font-weight: 600; color: var(--text-primary); font-size: 0.85rem; }
+.commentaire-date { color: var(--text-muted); font-size: 0.75rem; }
+.commentaire-texte { color: var(--text-secondary); font-size: 0.9rem; margin: 0; }
+.no-commentaires { color: var(--text-muted); font-size: 0.85rem; font-style: italic; }

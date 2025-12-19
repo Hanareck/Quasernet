@@ -1,6 +1,8 @@
 function renderFormulaire() {
     var f = state.formulaire;
     var estADecouvrir = f.statutLecture === 'A decouvrir';
+    var estEnCours = f.statutLecture === 'En cours de decouverte';
+    var cacherDates = estADecouvrir || estEnCours;
     var statutsPossession = Array.isArray(f.statutPossession) ? f.statutPossession : (f.statutPossession ? [f.statutPossession] : []);
     var estEmprunte = statutsPossession.indexOf('Emprunte') !== -1;
     var modeRapide = state.modeAjoutRapide && !state.modeEdition;
@@ -55,12 +57,114 @@ function renderFormulaire() {
                 '</div>' +
                 '<div class="champ-groupe">' +
                     '<label class="label" for="form-titre-input">Titre *</label>' +
-                    '<input id="form-titre-input" type="text" class="input" value="' + escapeHtml(f.titre) + '" placeholder="Titre..." onchange="updateForm(\'titre\',this.value)" required autocomplete="off">' +
+                    '<div style="display:flex;align-items:center;gap:0.5rem;">' +
+                        '<input id="form-titre-input" type="text" class="input" style="flex:1" value="' + escapeHtml(f.titre) + '" placeholder="Titre..." onchange="updateForm(\'titre\',this.value)" required autocomplete="off">' +
+                        (f.categorie === 'livre' ?
+                            '<button type="button" class="btn-openlibrary-search" title="Rechercher dans Open Library" onclick="rechercherDansOpenLibrary()" aria-label="Rechercher dans Open Library" ' + (state.rechercheOpenLibrary ? 'disabled' : '') + '>' + (state.rechercheOpenLibrary ? '...' : '🔍') + '</button>'
+                        : '') +
+                        (f.categorie === 'film' || f.categorie === 'autre' ?
+                            '<button type="button" class="btn-openlibrary-search" title="Rechercher dans OMDB" onclick="rechercherDansOMDB()" aria-label="Rechercher dans OMDB" ' + (state.rechercheOMDB ? 'disabled' : '') + '>' + (state.rechercheOMDB ? '...' : '🔍') + '</button>'
+                        : '') +
+                        (f.categorie === 'musique' ?
+                            '<button type="button" class="btn-openlibrary-search" title="Rechercher dans iTunes" onclick="rechercherDansItunes()" aria-label="Rechercher dans iTunes" ' + (state.rechercheItunes ? 'disabled' : '') + '>' + (state.rechercheItunes ? '...' : '🔍') + '</button>'
+                        : '') +
+                        (f.categorie === 'youtube' ?
+                            '<button type="button" class="btn-openlibrary-search" title="Rechercher sur YouTube" onclick="rechercherDansYoutube()" aria-label="Rechercher sur YouTube" ' + (state.rechercheYoutube ? 'disabled' : '') + '>' + (state.rechercheYoutube ? '...' : '🔍') + '</button>'
+                        : '') +
+                    '</div>' +
                 '</div>' +
                 '<div class="champ-groupe">' +
                     '<label class="label" for="form-auteur-input">' + (f.categorie === 'youtube' ? 'Chaîne YouTube' : 'Auteur / Artiste') + '</label>' +
                     '<input id="form-auteur-input" type="text" class="input" value="' + escapeHtml(f.auteur) + '" placeholder="' + (f.categorie === 'youtube' ? 'Nom de la chaîne...' : 'Auteur...') + '" onchange="updateForm(\'auteur\',this.value)" autocomplete="off">' +
                 '</div>' +
+                (f.categorie === 'livre' && state.dropdownOpenLibraryVisible && state.resultatsOpenLibrary.length > 0 ?
+                    '<div class="openlibrary-dropdown">' +
+                        state.resultatsOpenLibrary.map(function(result, index) {
+                            return '<div class="openlibrary-result-item" onclick="selectionnerResultatOpenLibrary(' + index + ')" tabindex="0" role="button">' +
+                                '<div class="openlibrary-result-cover">' +
+                                    (result.cover_url
+                                        ? '<img src="' + escapeHtml(result.cover_url) + '" alt="Couverture" onerror="this.style.display=\'none\'">'
+                                        : '<div class="openlibrary-result-placeholder">📚</div>'
+                                    ) +
+                                '</div>' +
+                                '<div class="openlibrary-result-info">' +
+                                    '<div class="openlibrary-result-title">' + escapeHtml(result.title) + '</div>' +
+                                    (result.author ? '<div class="openlibrary-result-author">' + escapeHtml(result.author) + '</div>' : '') +
+                                    (result.year ? '<div class="openlibrary-result-year">' + result.year + '</div>' : '') +
+                                '</div>' +
+                            '</div>';
+                        }).join('') +
+                    '</div>'
+                : '') +
+                (f.categorie === 'livre' && state.dropdownOpenLibraryVisible && state.resultatsOpenLibrary.length === 0 && !state.rechercheOpenLibrary ?
+                    '<div class="openlibrary-dropdown-empty">Aucun resultat trouve</div>'
+                : '') +
+                ((f.categorie === 'film' || f.categorie === 'autre') && state.dropdownOMDBVisible && state.resultatsOMDB.length > 0 ?
+                    '<div class="openlibrary-dropdown">' +
+                        state.resultatsOMDB.map(function(result, index) {
+                            return '<div class="openlibrary-result-item" onclick="selectionnerResultatOMDB(' + index + ')" tabindex="0" role="button">' +
+                                '<div class="openlibrary-result-cover">' +
+                                    (result.cover_url
+                                        ? '<img src="' + escapeHtml(result.cover_url) + '" alt="Poster" onerror="this.style.display=\'none\'">'
+                                        : '<div class="openlibrary-result-placeholder">🎬</div>'
+                                    ) +
+                                '</div>' +
+                                '<div class="openlibrary-result-info">' +
+                                    '<div class="openlibrary-result-title">' + escapeHtml(result.title) + '</div>' +
+                                    (result.author ? '<div class="openlibrary-result-author">' + escapeHtml(result.author) + '</div>' : '') +
+                                    (result.year ? '<div class="openlibrary-result-year">' + result.year + '</div>' : '') +
+                                '</div>' +
+                            '</div>';
+                        }).join('') +
+                    '</div>'
+                : '') +
+                ((f.categorie === 'film' || f.categorie === 'autre') && state.dropdownOMDBVisible && state.resultatsOMDB.length === 0 && !state.rechercheOMDB ?
+                    '<div class="openlibrary-dropdown-empty">Aucun resultat trouve</div>'
+                : '') +
+                (f.categorie === 'musique' && state.dropdownItunesVisible && state.resultatsItunes.length > 0 ?
+                    '<div class="openlibrary-dropdown">' +
+                        state.resultatsItunes.map(function(result, index) {
+                            return '<div class="openlibrary-result-item" onclick="selectionnerResultatItunes(' + index + ')" tabindex="0" role="button">' +
+                                '<div class="openlibrary-result-cover">' +
+                                    (result.cover_url
+                                        ? '<img src="' + escapeHtml(result.cover_url) + '" alt="Artwork" onerror="this.style.display=\'none\'">'
+                                        : '<div class="openlibrary-result-placeholder">🎵</div>'
+                                    ) +
+                                '</div>' +
+                                '<div class="openlibrary-result-info">' +
+                                    '<div class="openlibrary-result-title">' + escapeHtml(result.title) + '</div>' +
+                                    (result.author ? '<div class="openlibrary-result-author">' + escapeHtml(result.author) + '</div>' : '') +
+                                    (result.year ? '<div class="openlibrary-result-year">' + result.year + '</div>' : '') +
+                                '</div>' +
+                            '</div>';
+                        }).join('') +
+                    '</div>'
+                : '') +
+                (f.categorie === 'musique' && state.dropdownItunesVisible && state.resultatsItunes.length === 0 && !state.rechercheItunes ?
+                    '<div class="openlibrary-dropdown-empty">Aucun resultat trouve</div>'
+                : '') +
+                (f.categorie === 'youtube' && state.dropdownYoutubeVisible && state.resultatsYoutube.length > 0 ?
+                    '<div class="openlibrary-dropdown">' +
+                        state.resultatsYoutube.map(function(result, index) {
+                            return '<div class="openlibrary-result-item" onclick="selectionnerResultatYoutube(' + index + ')" tabindex="0" role="button">' +
+                                '<div class="openlibrary-result-cover">' +
+                                    (result.cover_url
+                                        ? '<img src="' + escapeHtml(result.cover_url) + '" alt="Miniature" onerror="this.style.display=\'none\'">'
+                                        : '<div class="openlibrary-result-placeholder">📹</div>'
+                                    ) +
+                                '</div>' +
+                                '<div class="openlibrary-result-info">' +
+                                    '<div class="openlibrary-result-title">' + escapeHtml(result.title) + '</div>' +
+                                    (result.author ? '<div class="openlibrary-result-author">' + escapeHtml(result.author) + '</div>' : '') +
+                                    (result.year ? '<div class="openlibrary-result-year">' + result.year + '</div>' : '') +
+                                '</div>' +
+                            '</div>';
+                        }).join('') +
+                    '</div>'
+                : '') +
+                (f.categorie === 'youtube' && state.dropdownYoutubeVisible && state.resultatsYoutube.length === 0 && !state.rechercheYoutube ?
+                    '<div class="openlibrary-dropdown-empty">Aucun resultat trouve</div>'
+                : '') +
                 (f.categorie === 'youtube' ?
                     '<div class="champ-groupe">' +
                         '<label class="label" for="form-lien-youtube">Lien YouTube *</label>' +
@@ -95,7 +199,7 @@ function renderFormulaire() {
                         '<label class="label" id="label-statut">Statut</label>' +
                         '<div class="statut-buttons" role="group" aria-labelledby="label-statut">' +
                             STATUTS_LECTURE.map(function(s) {
-                                return '<button type="button" class="statut-btn ' + (f.statutLecture === s ? 'actif' : '') + '" aria-pressed="' + (f.statutLecture === s ? 'true' : 'false') + '" onclick="setStatutLecture(\'' + s + '\')">' + s + '</button>';
+                                return '<button type="button" class="statut-btn ' + (f.statutLecture === s ? 'actif' : '') + '" aria-pressed="' + (f.statutLecture === s ? 'true' : 'false') + '" onclick="setStatutLecture(\'' + s + '\')">' + STATUTS_LECTURE_LABELS[s] + '</button>';
                             }).join('') +
                         '</div>' +
                     '</div>' +
@@ -134,12 +238,12 @@ function renderFormulaire() {
                 ) +
                 (modeRapide ? '' :
                 (f.categorie === 'livre' ?
-                    '<div class="champ-groupe' + (estADecouvrir ? ' hidden' : '') + '">' +
+                    '<div class="champ-groupe' + (cacherDates ? ' hidden' : '') + '">' +
                         '<label class="label" for="form-date-debut-lecture">Date de début de lecture</label>' +
                         '<input id="form-date-debut-lecture" type="date" class="input" value="' + (f.dateDebutLecture || '') + '" onchange="updateForm(\'dateDebutLecture\',this.value)">' +
                     '</div>'
                 : '') +
-                '<div class="champ-groupe' + (estADecouvrir ? ' hidden' : '') + '">' +
+                '<div class="champ-groupe' + (cacherDates ? ' hidden' : '') + '">' +
                     '<label class="label" for="form-date-decouverte">' + (f.categorie === 'livre' ? 'Date de fin de lecture' : 'Date de découverte') + '</label>' +
                     '<input id="form-date-decouverte" type="date" class="input" value="' + f.dateDecouverte + '" onchange="updateForm(\'dateDecouverte\',this.value)">' +
                 '</div>' +

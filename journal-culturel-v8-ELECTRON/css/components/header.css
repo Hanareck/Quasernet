@@ -1,0 +1,96 @@
+/* Header Styles - Journal Culturel v8 */
+.header { background: var(--header-bg); padding: 1.25rem 2rem; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1rem; position: relative; }
+.header-content { color: white; }
+.titre { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+.titre-icone { font-size: 1.75rem; }
+.sous-titre { margin-top: 0.25rem; opacity: 0.8; font-size: 0.9rem; }
+.header-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; position: absolute; right: 2rem; }
+.btn-icon { background: var(--bg-hover); border: 1px solid var(--border-color); color: var(--text-primary); width: 40px; height: 40px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.btn-icon:hover { background: var(--bg-card); box-shadow: var(--shadow-sm); }
+.btn-alerte { position: relative; }
+.badge-notif-alerte { position: absolute; top: -4px; right: -4px; background: #ef4444; color: white; font-size: 0.7rem; font-weight: 700; border-radius: 10px; padding: 0.1rem 0.35rem; min-width: 18px; text-align: center; }
+
+.header-modern {
+    background: linear-gradient(90deg, #312e81 0%, #3b82f6 100%);
+    color: #fff;
+    padding: 2rem 2rem 1.2rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 4px 24px rgba(49,46,129,0.08);
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+.header-modern .header-actions { position: absolute; right: 2rem; top: 2rem; }
+.header-fr {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 1rem 2rem 0.8rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+.header-fr .header-actions { position: absolute; right: 2rem; }
+.header-logo-zone {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+.header-logo-img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+.header-logo-icone {
+    font-size: 1.75rem;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    padding: 0.4rem 0.75rem;
+    box-shadow: var(--shadow-sm);
+    color: #fff;
+}
+.header-logo-txt {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+.titre-app {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+.slogan-app {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+.header-user-zone {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.05rem;
+}
+.header-user-pseudo {
+    font-weight: 600;
+    color: var(--accent-primary);
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 0.3rem 0.8rem;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+    .header-fr { flex-direction: column; align-items: flex-start; padding: 1.2rem 1rem 0.8rem 1rem; }
+    .header-user-zone { margin-top: 1rem; }
+    .header-logo-img { height: 65px; }
+}
