@@ -29,6 +29,7 @@ function renderApp() {
         <div class="header-user-zone">
             <span class="header-user-pseudo">${escapeHtml(state.userPseudo || '')}</span>
             ${dueSoonCount > 0 ? '<button class="btn-icon btn-alerte" onclick="setVue(\'alertes\')" title="' + dueSoonCount + ' emprunt(s) à rendre sous 7 jours" aria-label="Alertes emprunts"><span class="alerte-icone">⏰</span><span class="badge-notif-alerte">' + dueSoonCount + '</span></button>' : ''}
+            <button class="btn-icon" onclick="toggleModalRaccourcis()" title="Raccourcis clavier (?)" aria-label="Raccourcis clavier">⌨️</button>
             <button class="btn-icon" onclick="toggleTheme()" title="Thème" aria-label="Changer le thème">${state.theme === 'light' ? '🌙' : '☀️'}</button>
             <button class="btn-icon" onclick="setVueSettings()" title="Paramètres" aria-label="Paramètres">⚙️</button>
             <button class="btn-icon" onclick="deconnexion()" title="Déconnexion" aria-label="Déconnexion">🚪</button>
@@ -74,6 +75,7 @@ function renderApp() {
         (state.vue === 'liste' ? '<button class="btn-ajouter btn-ajouter-fixed" onclick="ouvrirAjout()" tabindex="0"><span style="font-size:1.25rem">+</span> Ajouter</button>' : '') +
         (state.vue === 'pile' ? '<button class="btn-ajouter btn-ajouter-fixed" onclick="ouvrirAjoutRapideDecouvrir()" tabindex="0"><span style="font-size:1.25rem">+</span> Ajout rapide</button>' : '') +
         renderModalDoublons() +
+        renderModalRaccourcis() +
         (state.toast ? '<div class="toast" role="status" aria-live="polite">' + state.toast + '</div>' : '') +
         footer;
 }
@@ -165,6 +167,87 @@ function renderDoublonItem(doublon) {
                 (e.dateDecouverte ? ' <span class="doublon-date">' + formatDate(e.dateDecouverte) + '</span>' : '') +
             '</div>' +
             '<div class="doublon-raison">' + doublon.raison + ' (' + doublon.score + '% similaire)</div>' +
+        '</div>' +
+    '</div>';
+}
+
+function renderModalRaccourcis() {
+    if (!state.modalRaccourcis) return '';
+
+    return '<div class="modal-overlay" onclick="toggleModalRaccourcis()">' +
+        '<div class="modal-raccourcis" onclick="event.stopPropagation()">' +
+            '<div class="modal-raccourcis-header">' +
+                '<h2>⌨️ Raccourcis clavier</h2>' +
+                '<button class="modal-close" onclick="toggleModalRaccourcis()" aria-label="Fermer">✕</button>' +
+            '</div>' +
+            '<div class="modal-raccourcis-body">' +
+                '<div class="raccourcis-section">' +
+                    '<h3 class="raccourcis-section-titre">Navigation</h3>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">L</span>' +
+                        '<span class="raccourci-description">Retour à la liste</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">S</span>' +
+                        '<span class="raccourci-description">Ouvrir les Stats</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">P</span>' +
+                        '<span class="raccourci-description">Ouvrir la Pile</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">O</span>' +
+                        '<span class="raccourci-description">Ouvrir Social</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">I</span>' +
+                        '<span class="raccourci-description">Ouvrir Import/Export</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="raccourcis-section">' +
+                    '<h3 class="raccourcis-section-titre">Actions</h3>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">+</span>' +
+                        '<span class="raccourci-ou">ou</span>' +
+                        '<span class="raccourci-touche">A</span>' +
+                        '<span class="raccourci-description">Ajouter un produit</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">/</span>' +
+                        '<span class="raccourci-description">Focus sur la recherche</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">Échap</span>' +
+                        '<span class="raccourci-description">Fermer / Retour / Annuler</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="raccourcis-section">' +
+                    '<h3 class="raccourcis-section-titre">Filtres & Affichage</h3>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">F</span>' +
+                        '<span class="raccourci-description">Ouvrir/Fermer les filtres</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">1</span>' +
+                        '<span class="raccourci-touche">2</span>' +
+                        '<span class="raccourci-touche">3</span>' +
+                        '<span class="raccourci-touche">4</span>' +
+                        '<span class="raccourci-touche">5</span>' +
+                        '<span class="raccourci-description">Filtrer par note (toggle)</span>' +
+                    '</div>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">G</span>' +
+                        '<span class="raccourci-description">Basculer Grille/Liste</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="raccourcis-section">' +
+                    '<h3 class="raccourcis-section-titre">Aide</h3>' +
+                    '<div class="raccourci-item">' +
+                        '<span class="raccourci-touche">?</span>' +
+                        '<span class="raccourci-description">Afficher cette aide</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
         '</div>' +
     '</div>';
 }

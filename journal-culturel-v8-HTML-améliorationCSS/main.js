@@ -376,6 +376,10 @@ window.setRechercheTagExport = function(v) {
 
 window.setTri = function(v) { state.tri = v; render(); };
 window.setModeAffichage = function(m) { state.modeAffichage = m; localStorage.setItem('journal-mode-affichage', m); render(); };
+window.toggleModeAffichage = function() {
+    var nouveauMode = state.modeAffichage === 'grille' ? 'liste' : 'grille';
+    setModeAffichage(nouveauMode);
+};
 
 // Toggle panneau de filtres
 window.togglePanneauFiltres = function() {
@@ -1544,4 +1548,133 @@ window.changerStatutDetail = function(entreeId, nouveauStatut) {
         afficherToast('Erreur de sauvegarde');
         render();
     });
+};
+
+// ========== RACCOURCIS CLAVIER ==========
+
+document.addEventListener('keydown', function(e) {
+    // Ignorer les raccourcis si on est dans un input/textarea ou si une modal est ouverte en mode edition
+    var isInputFocused = document.activeElement.tagName === 'INPUT' ||
+                        document.activeElement.tagName === 'TEXTAREA' ||
+                        document.activeElement.tagName === 'SELECT' ||
+                        document.activeElement.isContentEditable;
+
+    // Exception : Escape fonctionne toujours
+    if (e.key === 'Escape') {
+        e.preventDefault();
+        if (state.modalDoublons) {
+            annulerAjoutDoublon();
+        } else if (state.modalRaccourcis) {
+            toggleModalRaccourcis();
+        } else if (state.modalPile) {
+            window.fermerModalPile();
+        } else if (state.vue === 'detail') {
+            retourListe();
+        } else if (state.vue === 'formulaire') {
+            annulerFormulaire();
+        } else if (state.panneauFiltresOuvert) {
+            togglePanneauFiltres();
+        }
+        return;
+    }
+
+    // Pour les autres raccourcis, ignorer si on est dans un input
+    if (isInputFocused) return;
+
+    // Ajouter un produit : + ou A
+    if ((e.key === '+' || e.key === 'a' || e.key === 'A') && state.vue === 'liste') {
+        e.preventDefault();
+        ouvrirAjout();
+        return;
+    }
+
+    // Ajout rapide dans la pile : + ou A
+    if ((e.key === '+' || e.key === 'a' || e.key === 'A') && state.vue === 'pile') {
+        e.preventDefault();
+        ouvrirAjoutRapideDecouvrir();
+        return;
+    }
+
+    // Focus sur la recherche : /
+    if (e.key === '/') {
+        e.preventDefault();
+        var searchInput = document.querySelector('.recherche-input');
+        if (searchInput) searchInput.focus();
+        return;
+    }
+
+    // Ouvrir les stats : S
+    if (e.key === 's' || e.key === 'S') {
+        e.preventDefault();
+        setVue('stats');
+        return;
+    }
+
+    // Ouvrir la pile : P
+    if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        setVue('pile');
+        return;
+    }
+
+    // Toggle filtres : F
+    if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        togglePanneauFiltres();
+        return;
+    }
+
+    // Filtrer par note : 1-5
+    if (['1', '2', '3', '4', '5'].indexOf(e.key) !== -1 && state.vue === 'liste') {
+        e.preventDefault();
+        var note = parseInt(e.key);
+        if (state.filtreNotes.indexOf(note) !== -1) {
+            state.filtreNotes = state.filtreNotes.filter(function(n) { return n !== note; });
+        } else {
+            state.filtreNotes.push(note);
+        }
+        render();
+        return;
+    }
+
+    // Retour à la vue liste : L
+    if (e.key === 'l' || e.key === 'L') {
+        e.preventDefault();
+        setCategorie('tous');
+        return;
+    }
+
+    // Ouvrir social : O
+    if (e.key === 'o' || e.key === 'O') {
+        e.preventDefault();
+        setVue('social');
+        return;
+    }
+
+    // Import/Export : I
+    if (e.key === 'i' || e.key === 'I') {
+        e.preventDefault();
+        setVue('importExport');
+        return;
+    }
+
+    // Toggle mode affichage grille/liste : G
+    if (e.key === 'g' || e.key === 'G') {
+        e.preventDefault();
+        toggleModeAffichage();
+        return;
+    }
+
+    // Afficher l'aide des raccourcis : ?
+    if (e.key === '?' && !e.shiftKey) {
+        e.preventDefault();
+        toggleModalRaccourcis();
+        return;
+    }
+});
+
+// Fonction pour afficher/masquer la modal des raccourcis
+window.toggleModalRaccourcis = function() {
+    state.modalRaccourcis = !state.modalRaccourcis;
+    render();
 };

@@ -79,6 +79,7 @@ var state = {
     resultatsYoutube: [],
     dropdownYoutubeVisible: false,
     modalDoublons: null,
+    modalRaccourcis: false,
     modeImport: false,
     importResolve: null,
     importReject: null,
