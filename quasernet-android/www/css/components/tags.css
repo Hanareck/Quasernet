@@ -1,0 +1,263 @@
+/* Tags Styles - Journal Culturel v8 */
+/* Tags personnalisés - Formulaire */
+.tag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tag-remove {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+    transition: background 0.2s;
+}
+
+.tag-remove:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.btn-ajouter-tag {
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 50px;
+}
+
+.btn-ajouter-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.tags-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.tag-suggestion-btn {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.375rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tag-suggestion-btn:hover {
+    background: var(--accent-purple);
+    color: white;
+    border-color: var(--accent-purple);
+    transform: translateY(-2px);
+}
+
+/* Filtre tags - Liste */
+.filtre-tags-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--bg-card);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.filtre-tags-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filtre-tags-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.recherche-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-input);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    flex: 1;
+    min-width: 250px;
+    transition: border-color 0.2s;
+}
+
+.recherche-tag:focus-within {
+    border-color: var(--border-focus);
+}
+
+.recherche-tag .recherche-icone {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.recherche-tag-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.recherche-tag-input::placeholder {
+    color: var(--text-muted);
+}
+
+.btn-clear-recherche-tag {
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-clear-recherche-tag:hover {
+    background: var(--accent-red);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.filtre-tags-liste {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.aucun-tag-trouve {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 0.5rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+.filtre-tags-info, .export-tags-info {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 1rem;
+    text-align: center;
+    background: var(--bg-input);
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    margin: 0.75rem 0;
+}
+
+.tags-limite-info {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    padding: 0.75rem;
+    text-align: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.filtre-tag-btn {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    border: 2px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filtre-tag-btn:hover {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: var(--accent-purple);
+    color: var(--accent-purple);
+    transform: translateY(-2px);
+}
+
+.filtre-tag-btn.actif {
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+    color: white;
+    border-color: transparent;
+}
+
+.btn-reset-tags {
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    border: 2px solid var(--border-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-reset-tags:hover {
+    background: var(--accent-red);
+    color: white;
+    border-color: var(--accent-red);
+    transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    .filtre-tags-header {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .recherche-tag {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .filtre-tags-liste {
+        width: 100%;
+    }
+}

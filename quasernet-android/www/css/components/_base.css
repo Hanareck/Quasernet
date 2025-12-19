@@ -1,0 +1,74 @@
+/* Base Styles - Journal Culturel v8 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: linear-gradient(to bottom, var(--bg-primary) 0%, var(--bg-gradient-end) 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.main { padding: 1.5rem; max-width: 1400px; margin: 0 auto; }
+
+/* Responsive */
+@media (max-width: 900px) { 
+    .liste-item { grid-template-columns: 45px 1fr auto auto auto auto; gap: 0.75rem; } 
+    .liste-note { min-width: 90px; } 
+}
+@media (max-width: 768px) { 
+    .header { flex-direction: column; text-align: center; padding: 1rem; } 
+    .header-actions { justify-content: center; } 
+    .main { padding: 1rem; } 
+    .grille { grid-template-columns: 1fr 1fr; gap: 0.75rem; } 
+    .carte-couverture { height: 140px; } 
+}
+@media (max-width: 600px) { 
+    .ami-item { flex-direction: column; align-items: flex-start; gap: 0.75rem; } 
+    .ami-actions { width: 100%; justify-content: space-between; } 
+    .fil-item-content { flex-direction: column; } 
+    .fil-item-cover { width: 100%; height: 150px; } 
+}
+@media (max-width: 500px) { 
+    .grille { grid-template-columns: 1fr; } 
+    .catalogue-grille { grid-template-columns: 1fr 1fr; } 
+}
+
+/* Footer */
+.footer-legal {
+    margin-top: 3rem;
+    padding: 2rem 1rem 1.5rem 1rem;
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+.footer-legal-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+.footer-legal a {
+    color: var(--accent-primary);
+    text-decoration: underline;
+    word-break: break-all;
+}
+.btn-streaming-search {
+    background: var(--accent-blue);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.2rem 0.7rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: 0.2rem;
+}
+.btn-streaming-search:hover, .btn-streaming-search:focus {
+    background: var(--accent-primary);
+    outline: 2px solid var(--accent-primary);
+}

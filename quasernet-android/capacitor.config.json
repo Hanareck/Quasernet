@@ -1,0 +1,31 @@
+{
+  "appId": "com.quasernet.app",
+  "appName": "Quasernet",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "hostname": "quasernet.app"
+  },
+  "android": {
+    "buildOptions": {
+      "keystorePath": "",
+      "keystoreAlias": ""
+    }
+  },
+  "plugins": {
+    "Filesystem": {
+      "androidDisplayName": "Quasernet"
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#488AFF"
+    },
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#1a1a2e",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": true,
+      "spinnerColor": "#ffffff"
+    }
+  }
+}
