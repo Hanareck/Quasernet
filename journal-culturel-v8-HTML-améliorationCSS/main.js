@@ -10,7 +10,13 @@ var CATEGORIES = {
     autre: { nom: 'Autres', icone: '✨', genres: ['Podcast', 'Serie TV', 'Jeu video', 'Exposition', 'Spectacle', 'Conference', 'Autre'] }
 };
 
-var STATUTS_LECTURE = ['Découvert', 'En cours de découverte', 'A découvrir', 'A redécouvrir'];
+var STATUTS_LECTURE = ['Decouvert', 'En cours de decouverte', 'A decouvrir', 'A redecouvrir'];
+var STATUTS_LECTURE_LABELS = {
+    'Decouvert': 'Découvert',
+    'En cours de decouverte': 'En cours de découverte',
+    'A decouvrir': 'À découvrir',
+    'A redecouvrir': 'À redécouvrir'
+};
 var STATUTS_POSSESSION = ['Possedé', ' A acheter', 'A vendre', 'Vendu', 'Emprunté', 'Streaming'];
 
 // GLOBALS
@@ -263,6 +269,58 @@ document.addEventListener('click', function(e) {
     if (!btn.contains(e.target) && !menu.contains(e.target)) {
         menu.classList.remove('open');
         btn.setAttribute('aria-expanded', 'false');
+    }
+});
+
+// Fermer les dropdowns de recherche quand on clique en dehors
+document.addEventListener('click', function(e) {
+    var titleInput = document.getElementById('form-titre-input');
+    var auteurInput = document.getElementById('form-auteur-input');
+
+    // Fermer dropdown Open Library
+    if (state.dropdownOpenLibraryVisible) {
+        var clickedInsideOL = e.target.closest('.openlibrary-dropdown') ||
+                             e.target.closest('.openlibrary-dropdown-empty') ||
+                             (titleInput && titleInput.contains(e.target)) ||
+                             (auteurInput && auteurInput.contains(e.target)) ||
+                             (e.target.title && e.target.title.indexOf('Open Library') !== -1);
+        if (!clickedInsideOL) {
+            fermerDropdownOpenLibrary();
+        }
+    }
+
+    // Fermer dropdown OMDB
+    if (state.dropdownOMDBVisible) {
+        var clickedInsideOMDB = e.target.closest('.openlibrary-dropdown') ||
+                               e.target.closest('.openlibrary-dropdown-empty') ||
+                               (titleInput && titleInput.contains(e.target)) ||
+                               (e.target.title && e.target.title.indexOf('OMDB') !== -1);
+        if (!clickedInsideOMDB) {
+            fermerDropdownOMDB();
+        }
+    }
+
+    // Fermer dropdown iTunes
+    if (state.dropdownItunesVisible) {
+        var clickedInsideItunes = e.target.closest('.openlibrary-dropdown') ||
+                                 e.target.closest('.openlibrary-dropdown-empty') ||
+                                 (titleInput && titleInput.contains(e.target)) ||
+                                 (auteurInput && auteurInput.contains(e.target)) ||
+                                 (e.target.title && e.target.title.indexOf('iTunes') !== -1);
+        if (!clickedInsideItunes) {
+            fermerDropdownItunes();
+        }
+    }
+
+    // Fermer dropdown YouTube
+    if (state.dropdownYoutubeVisible) {
+        var clickedInsideYoutube = e.target.closest('.openlibrary-dropdown') ||
+                                  e.target.closest('.openlibrary-dropdown-empty') ||
+                                  (titleInput && titleInput.contains(e.target)) ||
+                                  (e.target.title && e.target.title.indexOf('YouTube') !== -1);
+        if (!clickedInsideYoutube) {
+            fermerDropdownYoutube();
+        }
     }
 });
 
@@ -834,7 +892,33 @@ window.retirerTag = function(tag) {
     render();
 };
 
-window.soumettreFormulaire = async function() {
+window.confirmerAjoutMalgreDoublons = function() {
+    var entree = state.modalDoublons ? state.modalDoublons.entree : null;
+    state.modalDoublons = null;
+
+    if (state.modeImport && state.importResolve) {
+        state.importResolve(true);
+        state.importResolve = null;
+        state.importReject = null;
+    } else {
+        render();
+        soumettreFormulaire(true);
+    }
+};
+
+window.annulerAjoutDoublon = function() {
+    state.modalDoublons = null;
+
+    if (state.modeImport && state.importReject) {
+        state.importReject(false);
+        state.importResolve = null;
+        state.importReject = null;
+    } else {
+        render();
+    }
+};
+
+window.soumettreFormulaire = async function(ignorerDoublons) {
     if (!state.formulaire.titre.trim()) { afficherToast('Titre requis'); return; }
 
     var entree = Object.assign({}, state.formulaire, {
@@ -842,6 +926,21 @@ window.soumettreFormulaire = async function() {
     });
 
     if (state.modeEdition && state.entreeSelectionnee) entree.id = state.entreeSelectionnee.id;
+
+    // Vérifier les doublons (seulement pour les nouveaux ajouts ou si pas déjà ignoré)
+    if (!ignorerDoublons && !state.modeEdition) {
+        var doublons = detecterDoublons(entree);
+        var totalDoublons = doublons.exacts.length + doublons.probables.length + doublons.possibles.length;
+
+        if (totalDoublons > 0) {
+            state.modalDoublons = {
+                entree: entree,
+                doublons: doublons
+            };
+            render();
+            return;
+        }
+    }
 
     // Si c'est un nouvel ajout "A decouvrir", calculer l'ordre pour qu'il aille en bas de la liste
     if (!state.modeEdition && entree.statutLecture === 'A decouvrir') {

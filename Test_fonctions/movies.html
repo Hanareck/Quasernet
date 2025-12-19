@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Films & Séries</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Styles spécifiques aux films */
+        .movie-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .movie-rating {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: gold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .movie-type {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .movie-year {
+            color: #666;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-film"></i> Recherche de Films & Séries</h1>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="movie-search-input" placeholder="Rechercher un film, une série...">
+                <button id="movie-search-button"><i class="fas fa-search"></i></button>
+            </div>
+            <div id="movie-suggestions" class="suggestions-dropdown"></div>
+        </div>
+        
+        <div class="filter-options">
+            <label>
+                <input type="radio" name="media-type" value="" checked> Tous
+            </label>
+            <label>
+                <input type="radio" name="media-type" value="movie"> Films
+            </label>
+            <label>
+                <input type="radio" name="media-type" value="series"> Séries
+            </label>
+            <label>
+                <input type="radio" name="media-type" value="episode"> Épisodes
+            </label>
+        </div>
+        
+        <div id="movie-results" class="results-grid"></div>
+    </div>
+    
+    <script src="movie-script.js"></script>
+</body>
+</html>

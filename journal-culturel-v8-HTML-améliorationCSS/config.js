@@ -12,6 +12,10 @@ var firebaseConfig = {
 var app, auth, db;
 var firebaseInitialized = false;
 
+// CLE API YOUTUBE (pour la recherche de videos)
+// Obtenez votre cle gratuite sur : https://console.cloud.google.com/apis/credentials
+var YOUTUBE_API_KEY = 'AIzaSyARsdAuOQ-eeEchxzwSjdA6iS5hT9-XUBw';
+
 try {
     app = firebase.initializeApp(firebaseConfig);
     auth = firebase.auth();

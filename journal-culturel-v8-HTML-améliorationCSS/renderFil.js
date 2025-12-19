@@ -44,7 +44,7 @@ function renderFilContenu() {
                         '<div class="fil-item-badges">' +
                             '<span class="badge">' + (CATEGORIES[item.categorie]?.icone || '✨') + ' ' + (CATEGORIES[item.categorie]?.nom || 'Autre') + '</span>' +
                             (item.genre ? '<span class="badge">' + escapeHtml(item.genre) + '</span>' : '') +
-                            (estADecouvrir ? '<span class="badge a-decouvrir">A decouvrir</span>' : '') +
+                            (estADecouvrir ? '<span class="badge a-decouvrir">À découvrir</span>' : '') +
                         '</div>' +
                         '<h3 class="fil-item-titre">' + escapeHtml(item.titre) + '</h3>' +
                         (item.auteur ? '<p class="fil-item-auteur">par ' + escapeHtml(item.auteur) + '</p>' : '') +

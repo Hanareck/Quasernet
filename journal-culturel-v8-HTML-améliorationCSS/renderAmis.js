@@ -172,7 +172,7 @@ function renderCatalogueAmi() {
                             (e.couverture ? '<img src="' + escapeHtml(e.couverture) + '" class="carte-image">' : '<div class="carte-placeholder">' + (CATEGORIES[e.categorie]?.icone || '✨') + '</div>') +
                             '<div class="carte-badges">' +
                                 '<span class="carte-badge">' + (CATEGORIES[e.categorie]?.icone || '✨') + '</span>' +
-                                (estADecouvrir ? '<span class="carte-badge a-decouvrir">A decouvrir</span>' : '') +
+                                (estADecouvrir ? '<span class="carte-badge a-decouvrir">À découvrir</span>' : '') +
                             '</div>' +
                         '</div>' +
                         '<div class="carte-contenu">' +

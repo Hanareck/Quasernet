@@ -42,7 +42,7 @@ function renderImportExport() {
                         '<select class="export-select" id="export-filtre-statut">' +
                             '<option value="tous">Tous les statuts</option>' +
                             STATUTS_LECTURE.map(function(s) {
-                                return '<option value="' + s + '">' + s + '</option>';
+                                return '<option value="' + s + '">' + STATUTS_LECTURE_LABELS[s] + '</option>';
                             }).join('') +
                         '</select>' +
                     '</div>' +

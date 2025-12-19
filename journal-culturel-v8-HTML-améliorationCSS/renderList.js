@@ -63,7 +63,7 @@ function renderListe(entrees) {
                         STATUTS_LECTURE.map(function(s) {
                             var isActive = state.filtreStatutsLecture.indexOf(s) !== -1;
                             return '<button class="filtre-option-btn ' + (isActive ? 'actif' : '') + '" onclick="toggleFiltreStatutLecture(\'' + escapeHtml(s) + '\')">' +
-                                escapeHtml(s) +
+                                escapeHtml(STATUTS_LECTURE_LABELS[s]) +
                             '</button>';
                         }).join('') +
                     '</div>' +
@@ -216,13 +216,19 @@ function renderListe(entrees) {
                         (e.lienQobuz ? '<a href="' + escapeHtml(e.lienQobuz) + '" class="btn-streaming btn-qobuz" target="_blank" rel="noopener" aria-label="Écouter sur Qobuz" onclick="event.stopPropagation()">Qobuz</a>' : '') +
                     '</div>' : ''
                 ) +
+                // Lien YouTube
+                (e.categorie === 'youtube' && e.lienYoutube ?
+                    '<div class="streaming-links-synth">' +
+                        '<a href="' + escapeHtml(e.lienYoutube) + '" class="btn-streaming btn-youtube" target="_blank" rel="noopener" aria-label="Regarder sur YouTube" onclick="event.stopPropagation()">▶ YouTube</a>' +
+                    '</div>' : ''
+                ) +
                 '</div>' +
                 (e.prive
                     ? '<button class="carte-badge prive clickable liste-badge-prive" onclick="event.stopPropagation();togglePriveEntree(\'' + e.id + '\')" title="Cliquer pour rendre public">🔒</button>'
                     : '<button class="carte-badge public clickable liste-badge-public" onclick="event.stopPropagation();togglePriveEntree(\'' + e.id + '\')" title="Cliquer pour rendre prive">🌐</button>') +
                 (!estADecouvrir ? '<div class="liste-note"><div class="etoiles etoiles-small">' + renderEtoiles(e.note || 0) + '</div></div>' : '<div class="liste-note"></div>') +
-                (e.statutLecture === 'A decouvrir' ? '<span class="carte-badge a-decouvrir">A decouvrir</span>' : '') +
-                (e.statutLecture === 'A redecouvrir' ? '<span class="carte-badge a-redecouvrir">↻ A redecouvrir</span>' : '') +
+                (e.statutLecture === 'A decouvrir' ? '<span class="carte-badge a-decouvrir">À découvrir</span>' : '') +
+                (e.statutLecture === 'A redecouvrir' ? '<span class="carte-badge a-redecouvrir">↻ À redécouvrir</span>' : '') +
                 (e.statutLecture === 'En cours de decouverte' ? '<span class="carte-badge en-cours">📖 En cours</span>' : '') +
                 statutsPossession.map(function(s) {
                     if (s === 'Emprunte') return '<span class="liste-badge emprunte">Emprunte</span>';
@@ -260,7 +266,7 @@ function renderListe(entrees) {
                         ? '<button class="carte-badge prive clickable" onclick="event.stopPropagation();togglePriveEntree(\'' + e.id + '\')" title="Cliquer pour rendre public">🔒</button>'
                         : '<button class="carte-badge public clickable" onclick="event.stopPropagation();togglePriveEntree(\'' + e.id + '\')" title="Cliquer pour rendre prive">🌐</button>') +
                     '<div class="carte-badges">' +
-                        (e.statutLecture === 'A decouvrir' ? '<span class="carte-badge a-decouvrir">A decouvrir</span>' : '') +
+                        (e.statutLecture === 'A decouvrir' ? '<span class="carte-badge a-decouvrir">À découvrir</span>' : '') +
                         (e.statutLecture === 'A redecouvrir' ? '<span class="carte-badge a-redecouvrir">↻</span>' : '') +
                         (e.statutLecture === 'En cours de decouverte' ? '<span class="carte-badge en-cours">📖</span>' : '') +
                         statutsPossession.map(function(s) {
@@ -286,6 +292,12 @@ function renderListe(entrees) {
                             (e.lienSpotify ? '<a href="' + escapeHtml(e.lienSpotify) + '" class="btn-streaming btn-spotify" target="_blank" rel="noopener" aria-label="Écouter sur Spotify" onclick="event.stopPropagation()">Spotify</a>' : '') +
                             (e.lienDeezer ? '<a href="' + escapeHtml(e.lienDeezer) + '" class="btn-streaming btn-deezer" target="_blank" rel="noopener" aria-label="Écouter sur Deezer" onclick="event.stopPropagation()">Deezer</a>' : '') +
                             (e.lienQobuz ? '<a href="' + escapeHtml(e.lienQobuz) + '" class="btn-streaming btn-qobuz" target="_blank" rel="noopener" aria-label="Écouter sur Qobuz" onclick="event.stopPropagation()">Qobuz</a>' : '') +
+                        '</div>' : ''
+                    ) +
+                    // Lien YouTube
+                    (e.categorie === 'youtube' && e.lienYoutube ?
+                        '<div class="streaming-links-synth">' +
+                            '<a href="' + escapeHtml(e.lienYoutube) + '" class="btn-streaming btn-youtube" target="_blank" rel="noopener" aria-label="Regarder sur YouTube" onclick="event.stopPropagation()">▶ YouTube</a>' +
                         '</div>' : ''
                     ) +
                     '<div class="carte-meta">' +
