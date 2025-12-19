@@ -1,0 +1,37 @@
+/* Alerts Styles - Journal Culturel v8 */
+/* Alertes */
+.alertes-container { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+.alertes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.alertes-titre { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; margin: 0; }
+.alertes-liste { display: flex; flex-direction: column; gap: 1rem; }
+.alerte-card { background: var(--bg-card); border-radius: 12px; padding: 1.25rem; display: grid; grid-template-columns: 80px 1fr auto; gap: 1.25rem; align-items: center; box-shadow: var(--shadow-sm); cursor: pointer; transition: all 0.2s; border-left: 4px solid transparent; }
+.alerte-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
+.alerte-card.alerte-urgent { border-left-color: #ef4444; background: linear-gradient(90deg, rgba(239, 68, 68, 0.05) 0%, var(--bg-card) 100%); }
+.alerte-card.alerte-warning { border-left-color: #f59e0b; background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, var(--bg-card) 100%); }
+.alerte-card.alerte-normal { border-left-color: #3b82f6; }
+.alerte-couverture { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+.alerte-couverture img { width: 100%; height: 100%; object-fit: cover; }
+.alerte-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--bg-hover); font-size: 2rem; }
+.alerte-info { flex: 1; }
+.alerte-titre { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.25rem 0; }
+.alerte-auteur { font-size: 0.9rem; color: var(--text-secondary); margin: 0 0 0.5rem 0; }
+.alerte-date { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--text-muted); }
+.alerte-icone-date { font-size: 1rem; }
+.alerte-countdown { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 80px; }
+.alerte-countdown-number { font-size: 2.5rem; font-weight: 700; color: var(--accent-primary); line-height: 1; }
+.alerte-urgent .alerte-countdown-number { color: #ef4444; }
+.alerte-warning .alerte-countdown-number { color: #f59e0b; }
+.alerte-countdown-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+.alerte-countdown-urgent { font-size: 0.75rem; font-weight: 700; color: #ef4444; text-transform: uppercase; margin-top: 0.5rem; animation: pulse-urgent 1.5s infinite; }
+
+@keyframes pulse-urgent {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@media (max-width: 768px) {
+    .alerte-card { grid-template-columns: 60px 1fr; gap: 1rem; }
+    .alerte-couverture { width: 60px; height: 60px; }
+    .alerte-countdown { grid-column: 1 / -1; flex-direction: row; gap: 0.5rem; justify-content: flex-start; min-width: auto; margin-top: 0.5rem; }
+    .alerte-countdown-number { font-size: 1.5rem; }
+}

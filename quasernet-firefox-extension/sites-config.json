@@ -1,0 +1,175 @@
+{
+  "sites": [
+    {
+      "name": "YouTube",
+      "domains": ["www.youtube.com", "m.youtube.com", "youtube.com"],
+      "type": "video",
+      "selectors": {
+        "title": [
+          "h1.ytd-watch-metadata yt-formatted-string",
+          "h1.title.ytd-video-primary-info-renderer",
+          "#title h1"
+        ],
+        "creator": [
+          "ytd-channel-name a",
+          "#owner-name a",
+          "#channel-name a",
+          ".ytd-video-owner-renderer a"
+        ],
+        "thumbnail": [
+          "meta[property='og:image']",
+          "link[itemprop='thumbnailUrl']"
+        ],
+        "description": [
+          "meta[property='og:description']",
+          "#description"
+        ]
+      },
+      "urlPattern": "^https?://(www\\.)?youtube\\.com/watch\\?v=",
+      "waitForSelector": "h1.ytd-watch-metadata",
+      "dynamicContent": true
+    },
+    {
+      "name": "Qobuz",
+      "domains": ["www.qobuz.com", "play.qobuz.com"],
+      "type": "music",
+      "selectors": {
+        "title": [
+          "h1[class*='album-title']",
+          "h1.album-meta__title",
+          "meta[property='og:title']"
+        ],
+        "creator": [
+          "a[class*='album-artist']",
+          ".album-meta__artist a",
+          "span[class*='artist-name']",
+          "meta[name='music:musician']"
+        ],
+        "thumbnail": [
+          "img[class*='album-cover']",
+          "meta[property='og:image']"
+        ],
+        "releaseDate": [
+          "span[class*='release-date']",
+          ".album-meta__date"
+        ]
+      },
+      "urlPattern": "^https?://(www\\.|play\\.)?qobuz\\.com/",
+      "waitForSelector": "h1[class*='album']",
+      "dynamicContent": true
+    },
+    {
+      "name": "Netflix",
+      "domains": ["www.netflix.com"],
+      "type": "video",
+      "selectors": {
+        "title": [
+          "h1[class*='title']",
+          ".title-title",
+          "h1.previewModal--player-titleTreatment-logo",
+          "meta[property='og:title']"
+        ],
+        "creator": [
+          "span[class*='director']",
+          ".previewModal--info-creator",
+          "span[class*='creator']"
+        ],
+        "description": [
+          "div[class*='synopsis']",
+          ".previewModal--info-synopsis",
+          "meta[property='og:description']"
+        ],
+        "thumbnail": [
+          "meta[property='og:image']",
+          "img[class*='boxart']"
+        ]
+      },
+      "urlPattern": "^https?://(www\\.)?netflix\\.com/",
+      "waitForSelector": "h1[class*='title']",
+      "dynamicContent": true
+    },
+    {
+      "name": "Open Library",
+      "domains": ["openlibrary.org"],
+      "type": "book",
+      "selectors": {
+        "title": [
+          "h1[itemprop='name']",
+          "h1.work-title",
+          "meta[property='og:title']"
+        ],
+        "creator": [
+          "a[itemprop='author']",
+          ".work-author a",
+          "span[itemprop='author']"
+        ],
+        "thumbnail": [
+          "img.bookcover",
+          "img[itemprop='image']",
+          "meta[property='og:image']"
+        ],
+        "publishDate": [
+          "span[itemprop='datePublished']",
+          ".publish-date"
+        ],
+        "description": [
+          "div[class*='description']",
+          "meta[property='og:description']"
+        ]
+      },
+      "urlPattern": "^https?://openlibrary\\.org/",
+      "waitForSelector": "h1[itemprop='name']",
+      "dynamicContent": false
+    },
+    {
+      "name": "Spotify",
+      "domains": ["open.spotify.com"],
+      "type": "music",
+      "selectors": {
+        "title": [
+          "h1[data-encore-id='text']",
+          "meta[property='og:title']",
+          "meta[name='twitter:title']"
+        ],
+        "creator": [
+          "a[data-encore-id='text'][href*='/artist/']",
+          "meta[property='music:musician']"
+        ],
+        "thumbnail": [
+          "meta[property='og:image']",
+          "img[data-testid='cover-art']"
+        ]
+      },
+      "urlPattern": "^https?://open\\.spotify\\.com/(album|track|playlist)/",
+      "waitForSelector": "h1[data-encore-id='text']",
+      "dynamicContent": true
+    },
+    {
+      "name": "IMDb",
+      "domains": ["www.imdb.com"],
+      "type": "video",
+      "selectors": {
+        "title": [
+          "h1[data-testid='hero__pageTitle']",
+          "h1.sc-afe43def-0",
+          "meta[property='og:title']"
+        ],
+        "creator": [
+          "a[href*='/name/'][class*='director']",
+          ".ipc-metadata-list-item__content-container a[href*='/name/']"
+        ],
+        "thumbnail": [
+          "meta[property='og:image']",
+          "img.ipc-image"
+        ],
+        "releaseDate": [
+          "a[href*='/releaseinfo']",
+          "li[data-testid='title-details-releasedate']"
+        ]
+      },
+      "urlPattern": "^https?://(www\\.)?imdb\\.com/title/",
+      "waitForSelector": "h1[data-testid='hero__pageTitle']",
+      "dynamicContent": true
+    }
+  ]
+}

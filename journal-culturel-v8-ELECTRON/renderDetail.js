@@ -28,6 +28,14 @@ function renderDetail() {
         '</div>';
     }
 
+    // Lien YouTube
+    var lienYoutube = '';
+    if (e.categorie === 'youtube' && e.lienYoutube) {
+        lienYoutube = '<div class="streaming-links-synth">' +
+            '<a href="' + escapeHtml(e.lienYoutube) + '" class="btn-streaming btn-youtube" target="_blank" rel="noopener" aria-label="Regarder sur YouTube">▶ YouTube</a>' +
+        '</div>';
+    }
+
     return '<div class="detail-container">' +
         '<div class="detail-header">' +
             '<button class="btn-retour" onclick="retourListe()">← Retour</button>' +
@@ -48,8 +56,8 @@ function renderDetail() {
                     '<span class="badge">' + (CATEGORIES[e.categorie]?.icone || '✨') + ' ' + (CATEGORIES[e.categorie]?.nom || 'Autre') + '</span>' +
                     genres.map(function(g) { return '<span class="badge">' + escapeHtml(g) + '</span>'; }).join('') +
                     tags.map(function(t) { return '<span class="badge badge-tag">' + escapeHtml(t) + '</span>'; }).join('') +
-                    (estADecouvrir ? '<span class="badge a-decouvrir">A decouvrir</span>' : '') +
-                    (e.statutLecture === 'A redecouvrir' ? '<span class="badge a-redecouvrir">↻ A redecouvrir</span>' : '') +
+                    (estADecouvrir ? '<span class="badge a-decouvrir">À découvrir</span>' : '') +
+                    (e.statutLecture === 'A redecouvrir' ? '<span class="badge a-redecouvrir">↻ À redécouvrir</span>' : '') +
                     (e.statutLecture === 'En cours de decouverte' ? '<span class="badge en-cours">📖 En cours</span>' : '') +
                     statutsPossession.map(function(s) {
                         if (s === 'A acheter') return '<span class="badge a-acheter">A acheter</span>';
@@ -59,6 +67,7 @@ function renderDetail() {
                     }).join('') +
                     // Liens streaming juste après les badges
                     liensStreaming +
+                    lienYoutube +
                 '</div>' +
                 '<h2 class="detail-titre">' + escapeHtml(e.titre) + '</h2>' +
                 (e.auteur ? '<p class="detail-auteur">par ' + escapeHtml(e.auteur) + '</p>' : '') +
@@ -87,7 +96,7 @@ function renderDetail() {
                         STATUTS_LECTURE.map(function(s) {
                             return '<button class="statut-btn ' + (e.statutLecture === s ? 'actif' : '') + '" ' +
                                 'onclick="changerStatutDetail(\'' + e.id + '\', \'' + s + '\')">' +
-                                s +
+                                STATUTS_LECTURE_LABELS[s] +
                             '</button>';
                         }).join('') +
                     '</div>' +

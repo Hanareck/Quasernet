@@ -212,6 +212,3 @@ function traduireErreur(code) {
     };
     return erreurs[code] || 'Une erreur est survenue';
 }
-
-// Exposer les fonctions au scope global
-window.deconnexion = deconnexion;

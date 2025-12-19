@@ -304,73 +304,76 @@ function parseCSVLine(ligne) {
     return colonnes;
 }
 
-// Vérifier si une entrée existe déjà (même titre et auteur)
-function entreeExisteDeja(titre, auteur) {
-    return state.entrees.some(function(e) {
-        var titreSimilaire = e.titre.toLowerCase().trim() === titre.toLowerCase().trim();
-        var auteurSimilaire = (e.auteur || '').toLowerCase().trim() === (auteur || '').toLowerCase().trim();
-        return titreSimilaire && auteurSimilaire;
+// Vérifier les doublons pour une entrée lors de l'import (retourne une Promise)
+function verifierDoublonsPourImport(entree) {
+    return new Promise(function(resolve, reject) {
+        var doublons = detecterDoublons(entree);
+        var totalDoublons = doublons.exacts.length + doublons.probables.length + doublons.possibles.length;
+
+        if (totalDoublons === 0) {
+            resolve(true);
+            return;
+        }
+
+        state.modeImport = true;
+        state.importResolve = resolve;
+        state.importReject = reject;
+        state.modalDoublons = { entree: entree, doublons: doublons };
+        render();
     });
 }
 
 // Importer les entrées dans Firestore
 async function importerEntrees(entrees, erreurs) {
-    var doublons = [];
-    var entreesFiltrees = [];
-
-    entrees.forEach(function(entree) {
-        if (entreeExisteDeja(entree.titre, entree.auteur)) {
-            doublons.push(entree.titre + (entree.auteur ? ' - ' + entree.auteur : ''));
-        } else {
-            entreesFiltrees.push(entree);
-        }
-    });
-
-    var messageConfirm = 'Vous allez importer ' + entreesFiltrees.length + ' entrée(s).\n\n';
-
-    if (doublons.length > 0) {
-        messageConfirm += 'Attention : ' + doublons.length + ' doublon(s) détecté(s) et ignoré(s) :\n';
-        messageConfirm += doublons.slice(0, 5).join('\n');
-        if (doublons.length > 5) {
-            messageConfirm += '\n... et ' + (doublons.length - 5) + ' autre(s)';
-        }
-        messageConfirm += '\n\n';
+    if (entrees.length === 0) {
+        afficherToast('Aucune entrée valide à importer');
+        return;
     }
+
+    var messageConfirm = 'Vous allez importer ' + entrees.length + ' entrée(s).\n\n';
 
     if (erreurs.length > 0) {
         messageConfirm += 'Attention : ' + erreurs.length + ' ligne(s) avec erreur(s) ont été ignorées.\n\n';
     }
 
-    messageConfirm += 'Voulez-vous continuer ?';
-
-    if (entreesFiltrees.length === 0) {
-        afficherToast('Aucune nouvelle entrée à importer (tous des doublons ou erreurs)');
-        return;
-    }
+    messageConfirm += 'Pour chaque entrée avec des doublons potentiels, une confirmation vous sera demandée.\n\nVoulez-vous continuer ?';
 
     var confirmation = confirm(messageConfirm);
     if (!confirmation) return;
 
     state.syncing = true;
+    state.modeImport = true;
     render();
 
     var compteur = 0;
+    var doublonsIgnores = 0;
     var erreursImport = [];
 
-    for (var i = 0; i < entreesFiltrees.length; i++) {
+    for (var i = 0; i < entrees.length; i++) {
         try {
-            await sauvegarderEntree(entreesFiltrees[i]);
-            compteur++;
+            var confirmer = await verifierDoublonsPourImport(entrees[i]);
+
+            if (confirmer) {
+                await sauvegarderEntree(entrees[i]);
+                compteur++;
+            } else {
+                doublonsIgnores++;
+            }
         } catch (err) {
-            erreursImport.push('Erreur pour "' + entreesFiltrees[i].titre + '": ' + err.message);
+            if (err === false) {
+                doublonsIgnores++;
+            } else {
+                erreursImport.push('Erreur pour "' + entrees[i].titre + '": ' + err.message);
+            }
         }
     }
 
     state.syncing = false;
+    state.modeImport = false;
 
     var message = compteur + ' entrée(s) importée(s) !';
-    if (doublons.length > 0) {
-        message += ' (' + doublons.length + ' doublon(s) ignoré(s))';
+    if (doublonsIgnores > 0) {
+        message += ' (' + doublonsIgnores + ' doublon(s) ignoré(s))';
     }
     if (erreursImport.length > 0) {
         message += '\n' + erreursImport.length + ' erreur(s) lors de l\'import.';

@@ -310,3 +310,101 @@ window.getElementsNonVus = function() {
 
     return countFil + countNotif;
 };
+
+// DETECTION DE DOUBLONS
+
+// Normalise un texte pour la comparaison (minuscules, sans accents, sans articles, sans ponctuation)
+function normaliserTexte(texte) {
+    if (!texte) return '';
+
+    var normalise = texte.toLowerCase();
+
+    // Supprimer les accents
+    normalise = normalise.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    // Supprimer les articles français
+    normalise = normalise.replace(/^(le|la|les|un|une|des|l'|du|de la)\s+/gi, '');
+
+    // Supprimer la ponctuation
+    normalise = normalise.replace(/[^\w\s]/g, ' ');
+
+    // Supprimer les espaces multiples
+    normalise = normalise.replace(/\s+/g, ' ').trim();
+
+    return normalise;
+}
+
+// Calcule un score de similarité entre deux textes (0 = différent, 100 = identique)
+function calculerSimilarite(texte1, texte2) {
+    var norm1 = normaliserTexte(texte1);
+    var norm2 = normaliserTexte(texte2);
+
+    if (!norm1 || !norm2) return 0;
+
+    // Identique après normalisation
+    if (norm1 === norm2) return 100;
+
+    // L'un contient l'autre
+    if (norm1.indexOf(norm2) !== -1 || norm2.indexOf(norm1) !== -1) return 85;
+
+    // Calculer le nombre de mots communs
+    var mots1 = norm1.split(' ');
+    var mots2 = norm2.split(' ');
+    var motsCommuns = 0;
+
+    mots1.forEach(function(mot) {
+        if (mots2.indexOf(mot) !== -1) motsCommuns++;
+    });
+
+    var similarite = (motsCommuns * 2 / (mots1.length + mots2.length)) * 100;
+
+    return Math.round(similarite);
+}
+
+// Détecte les doublons potentiels d'une entrée
+function detecterDoublons(nouvelleEntree) {
+    var doublons = {
+        exacts: [],      // Doublons exacts (titre + auteur identiques)
+        probables: [],   // Très similaires (score >= 85)
+        possibles: []    // Similaires (score >= 60)
+    };
+
+    state.entrees.forEach(function(entree) {
+        // Ignorer si on est en mode édition et que c'est la même entrée
+        if (state.modeEdition && state.entreeSelectionnee && entree.id === state.entreeSelectionnee.id) {
+            return;
+        }
+
+        // Vérifier seulement dans la même catégorie
+        if (entree.categorie !== nouvelleEntree.categorie) return;
+
+        // Comparer les titres
+        var scoreTitre = calculerSimilarite(entree.titre, nouvelleEntree.titre);
+
+        // Doublon exact : titre identique + auteur identique (ou les deux vides)
+        var auteurIdentique = (!entree.auteur && !nouvelleEntree.auteur) ||
+                             (normaliserTexte(entree.auteur || '') === normaliserTexte(nouvelleEntree.auteur || ''));
+
+        if (scoreTitre === 100 && auteurIdentique) {
+            doublons.exacts.push({
+                entree: entree,
+                score: 100,
+                raison: 'Titre et auteur identiques'
+            });
+        } else if (scoreTitre >= 85) {
+            doublons.probables.push({
+                entree: entree,
+                score: scoreTitre,
+                raison: 'Titre très similaire' + (auteurIdentique ? ' et même auteur' : '')
+            });
+        } else if (scoreTitre >= 60) {
+            doublons.possibles.push({
+                entree: entree,
+                score: scoreTitre,
+                raison: 'Titre similaire'
+            });
+        }
+    });
+
+    return doublons;
+}

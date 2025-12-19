@@ -1,0 +1,420 @@
+/* Import/Export Styles - Journal Culturel v8 */
+/* Import/Export */
+.import-export-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.import-export-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.import-export-titre {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.import-export-section {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.section-titre {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.75rem 0;
+}
+
+.section-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.export-filtres {
+    background: var(--bg-hover);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filtres-titre {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+}
+
+.filtres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filtre-groupe {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filtre-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.export-select, .export-input {
+    padding: 0.625rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.export-select:focus, .export-input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+}
+
+.filtre-groupe-tags {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.export-tags-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.recherche-tag-export {
+    flex: 1;
+    min-width: 250px;
+}
+
+.recherche-tag-export-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.recherche-tag-export-input::placeholder {
+    color: var(--text-muted);
+}
+
+.export-tags-liste {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.export-tag-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.export-tag-checkbox:hover {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: var(--accent-purple);
+}
+
+.export-tag-checkbox input[type="checkbox"]:checked + span {
+    font-weight: 600;
+    color: var(--accent-purple);
+}
+
+.export-tag-check {
+    cursor: pointer;
+}
+
+.export-actions {
+    margin-top: 1rem;
+}
+
+.btn-apercu-export {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-card);
+    color: var(--accent-primary);
+    border: 2px solid var(--accent-primary);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-apercu-export:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.export-apercu-container {
+    background: var(--bg-hover);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.export-apercu-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.export-apercu-titre {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    flex: 1;
+}
+
+.btn-selectionner-tout, .btn-deselectionner-tout {
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-selectionner-tout:hover, .btn-deselectionner-tout:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.export-apercu-liste {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.export-apercu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-card);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.export-apercu-item:hover {
+    background: var(--bg-hover);
+    transform: translateX(4px);
+}
+
+.export-entree-check {
+    cursor: pointer;
+}
+
+.export-apercu-info {
+    flex: 1;
+}
+
+.export-apercu-titre-entree {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.export-apercu-meta {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.export-apercu-vide {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.btn-exporter-selection, .btn-exporter {
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.btn-exporter-selection:hover, .btn-exporter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.export-buttons {
+    margin-top: 1.5rem;
+}
+
+.import-zone {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-hover);
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.btn-choisir-fichier {
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-green) 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 1rem;
+}
+
+.btn-choisir-fichier:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.import-info {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.import-exemple {
+    background: var(--bg-hover);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.exemple-titre {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.exemple-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.btn-telecharger-exemple {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-card);
+    color: var(--accent-blue);
+    border: 2px solid var(--accent-blue);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-telecharger-exemple:hover {
+    background: var(--accent-blue);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.import-notes {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 8px;
+}
+
+.note-titre {
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin: 0 0 0.75rem 0;
+    font-size: 0.95rem;
+}
+
+.notes-liste {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: var(--text-primary);
+}
+
+.notes-liste li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.notes-liste code {
+    background: var(--bg-card);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: var(--accent-purple);
+}
+
+@media (max-width: 768px) {
+    .import-export-container {
+        padding: 1rem;
+    }
+
+    .import-export-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .import-export-section {
+        padding: 1.5rem;
+    }
+
+    .filtres-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .export-apercu-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-selectionner-tout, .btn-deselectionner-tout {
+        width: 100%;
+    }
+}

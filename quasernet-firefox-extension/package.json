@@ -1,0 +1,22 @@
+{
+  "name": "quasernet-capture",
+  "version": "1.0.0",
+  "description": "Extension Firefox pour capturer vos découvertes culturelles",
+  "scripts": {
+    "lint": "web-ext lint",
+    "start": "web-ext run",
+    "build": "web-ext build"
+  },
+  "keywords": [
+    "firefox",
+    "extension",
+    "capture",
+    "cultural",
+    "journal"
+  ],
+  "author": "Quasernet",
+  "license": "MIT",
+  "devDependencies": {
+    "web-ext": "^7.9.0"
+  }
+}

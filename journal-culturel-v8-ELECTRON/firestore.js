@@ -539,10 +539,6 @@ async function reordonnerSection(entreesIds) {
     render();
 }
 
-// Exposer les fonctions principales au scope global
-window.chargerEntrees = chargerEntrees;
-window.sauvegarderEntree = sauvegarderEntree;
-window.supprimerEntree = supprimerEntree;
 window.migrerOrdresEntrees = migrerOrdresEntrees;
 window.mettreAJourOrdre = mettreAJourOrdre;
 window.reordonnerSection = reordonnerSection;

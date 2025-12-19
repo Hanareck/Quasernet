@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quasernet Capture</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>Quasernet</h1>
+      <p class="subtitle">Capture culturelle</p>
+    </header>
+
+    <!-- Bouton de capture principal -->
+    <div class="capture-section">
+      <button id="captureBtn" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+          <polyline points="7 3 7 8 15 8"></polyline>
+        </svg>
+        Capturer cette page
+      </button>
+    </div>
+
+    <!-- Zone de statut -->
+    <div id="status" class="status hidden"></div>
+
+    <!-- Aperçu des données -->
+    <div id="preview" class="preview hidden">
+      <h3>Données capturées</h3>
+      <div id="previewContent"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="capture">Capture</button>
+      <button class="tab" data-tab="history">Historique</button>
+      <button class="tab" data-tab="settings">Paramètres</button>
+    </nav>
+
+    <!-- Contenu des onglets -->
+    <div class="tab-content">
+      <!-- Onglet Capture (déjà affiché) -->
+      <div id="capture-tab" class="tab-pane active">
+        <!-- Le contenu de capture est au-dessus -->
+      </div>
+
+      <!-- Onglet Historique -->
+      <div id="history-tab" class="tab-pane">
+        <div class="history-header">
+          <h3>Captures locales</h3>
+          <button id="syncBtn" class="btn-secondary">Synchroniser</button>
+        </div>
+        <div id="historyList" class="history-list">
+          <p class="empty-state">Aucune capture locale</p>
+        </div>
+      </div>
+
+      <!-- Onglet Paramètres -->
+      <div id="settings-tab" class="tab-pane">
+        <h3>Configuration de l'API</h3>
+        <form id="settingsForm">
+          <div class="form-group">
+            <label for="apiUrl">URL de l'API</label>
+            <input type="url" id="apiUrl" placeholder="https://api.quasernet.com/capture">
+          </div>
+
+          <div class="form-group">
+            <label for="apiKey">Clé API (optionnel)</label>
+            <input type="password" id="apiKey" placeholder="Votre clé API">
+          </div>
+
+          <div class="form-group checkbox">
+            <input type="checkbox" id="autoSave">
+            <label for="autoSave">Sauvegarde automatique locale</label>
+          </div>
+
+          <div class="form-group checkbox">
+            <input type="checkbox" id="useLocalStorage">
+            <label for="useLocalStorage">Mode hors-ligne uniquement</label>
+          </div>
+
+          <button type="submit" class="btn-primary">Enregistrer</button>
+        </form>
+
+        <div class="danger-zone">
+          <h4>Zone de danger</h4>
+          <button id="clearHistoryBtn" class="btn-danger">Effacer l'historique local</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <a href="https://github.com/votre-repo" target="_blank">Documentation</a>
+      <span>v1.0.0</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

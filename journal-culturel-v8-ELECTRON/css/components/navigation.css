@@ -1,0 +1,80 @@
+/* Navigation Styles - Journal Culturel v8 */
+.navigation { display: flex; gap: 0.5rem; padding: 0.75rem 2rem; background: var(--nav-bg); overflow-x: auto; overflow-y: visible; border-bottom: 1px solid var(--border-color); transition: background 0.3s; }
+.onglet { padding: 0.5rem 0.875rem; border: none; background: transparent; border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: all 0.2s ease; white-space: nowrap; font-family: 'Inter', sans-serif; }
+.onglet:hover { background: var(--bg-hover); }
+.onglet.actif { background: var(--accent-primary); color: white; }
+.onglet-special { border: 2px dashed var(--border-color); }
+.onglet-special.actif { border-style: solid; border-color: var(--accent-primary); }
+.push-right { margin-left: auto; }
+
+/* Dropdown navigation */
+.dropdown-nav {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+
+.dropdown-toggle[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: fixed;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    min-width: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    padding: 0.5rem 0;
+}
+
+.dropdown-menu.open {
+    display: block;
+}
+
+.dropdown-item {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    border: none;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-hover);
+}
+
+.dropdown-item.actif {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.dropdown-item:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: -2px;
+    background: var(--bg-hover);
+}
+
+/* Badge notifications */
+.badge-notif { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; margin-left: 6px; background: #ff4444; color: white; border-radius: 10px; font-size: 0.7rem; font-weight: 600; line-height: 1; }
+.onglet.actif .badge-notif { background: rgba(255, 255, 255, 0.3); }
