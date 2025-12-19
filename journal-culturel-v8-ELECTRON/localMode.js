@@ -73,8 +73,13 @@ function sauvegarderPseudoLocal(pseudo) {
 
 // Définir le mode (local ou cloud)
 function setMode(mode) {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.MODE, mode);
-    state.mode = mode;
+    if (mode === null) {
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.MODE);
+        state.mode = null;
+    } else {
+        localStorage.setItem(LOCAL_STORAGE_KEYS.MODE, mode);
+        state.mode = mode;
+    }
 }
 
 // Effacer toutes les données locales

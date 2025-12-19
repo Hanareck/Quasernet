@@ -1,0 +1,32 @@
+# Capacitor
+.capacitor/
+android/
+ios/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build
+dist/
+build/
+*.apk
+*.aab
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Android specific
+*.jks
+*.keystore
+local.properties
+
+# Logs
+*.log

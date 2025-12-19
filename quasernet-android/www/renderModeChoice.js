@@ -10,7 +10,7 @@ function renderModeChoice() {
                 '<h2 class="mode-titre">Mode Local</h2>' +
                 '<ul class="mode-features">' +
                     '<li>✅ Gratuit et illimité</li>' +
-                    '<li>🔒 Données privées chez vous</li>' +
+                    '<li>🔒 Données privées sur votre téléphone</li>' +
                     '<li>💾 Fonctionne hors-ligne</li>' +
                     '<li>📤 Import/Export facile</li>' +
                     '<li>❌ Pas de social</li>' +
@@ -39,12 +39,12 @@ function renderModeChoice() {
 window.choisirMode = function(mode) {
     setMode(mode);
     if (mode === 'local') {
-        // Mode local : vérifier si on est en Electron
-        if (typeof window.electron !== 'undefined') {
-            // Mode Electron : initialiser et vérifier le dossier
-            initialiserModeElectron();
+        // Mode local : vérifier si on est en Android
+        if (typeof window.Capacitor !== 'undefined') {
+            // Mode Android : initialiser directement
+            initialiserModeAndroid();
         } else {
-            // Mode local sans Electron (navigateur)
+            // Mode local sans Android (navigateur)
             initialiserModeLocal();
             render();
         }

@@ -1,14 +1,9 @@
 var state = {
-    // Mode de fonctionnement (null = pas encore choisi, 'local' ou 'cloud')
-    mode: null,
-    needsFolderSelection: false,
-    currentFolder: null,
-
     user: null,
     userPseudo: null,
     userFriendCode: null,
     dernierChangementPseudo: null,
-    authLoading: false,
+    authLoading: true,
     authMode: 'login',
     authError: null,
     entrees: [],

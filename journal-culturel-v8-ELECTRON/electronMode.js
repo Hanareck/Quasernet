@@ -187,31 +187,24 @@ async function initialiserModeElectron() {
     state.authLoading = true;
     render();
 
-    // Vérifier si un dossier est configuré
+    // Vérifier si un dossier est configuré et le charger
     var hasFolder = await hasDossierElectron();
 
-    if (!hasFolder) {
-        // Demander à l'utilisateur de choisir un dossier
-        state.authLoading = false;
-        state.needsFolderSelection = true;
-        render();
-        return;
+    if (hasFolder) {
+        // Charger le dossier actuel dans le state
+        try {
+            state.currentFolder = await getDossierElectron();
+        } catch (e) {
+            state.currentFolder = null;
+        }
+    } else {
+        state.currentFolder = null;
     }
 
-    // Charger les données
-    try {
-        state.entrees = await chargerEntreesElectron();
-        state.userPseudo = await chargerPseudoElectron();
-        state.user = null;
-        state.vue = 'liste';
-        state.needsFolderSelection = false;
-    } catch (error) {
-        console.error('Erreur initialisation Electron:', error);
-        state.entrees = [];
-        state.userPseudo = 'Utilisateur';
-    }
-
+    // Toujours afficher l'écran de sélection de dossier
+    // L'utilisateur pourra confirmer le dossier existant ou en choisir un nouveau
     state.authLoading = false;
+    state.needsFolderSelection = true;
     render();
 }
 
@@ -219,8 +212,26 @@ async function initialiserModeElectron() {
 window.selectionnerDossierElectron = async function() {
     var folder = await choisirDossierElectron();
     if (folder) {
-        afficherToast('Dossier configuré : ' + folder);
-        await initialiserModeElectron();
+        state.currentFolder = folder;
+        state.needsFolderSelection = false;
+        state.authLoading = true;
+        render();
+
+        try {
+            state.entrees = await chargerEntreesElectron();
+            state.userPseudo = await chargerPseudoElectron();
+            state.user = null;
+            state.vue = 'liste';
+            afficherToast('Dossier configuré : ' + folder);
+        } catch (error) {
+            console.error('Erreur lors du chargement:', error);
+            state.entrees = [];
+            state.userPseudo = 'Utilisateur';
+            afficherToast('Erreur lors du chargement des données');
+        }
+
+        state.authLoading = false;
+        render();
     }
 };
 

@@ -1,0 +1,33 @@
+{
+  "name": "quasernet-android",
+  "version": "1.0.0",
+  "description": "Quasernet - Application Android de journal culturel",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Fichiers déjà prêts dans www/'",
+    "sync": "npx cap sync",
+    "open:android": "npx cap open android",
+    "run:android": "npx cap run android",
+    "add:android": "npx cap add android"
+  },
+  "keywords": [
+    "android",
+    "journal",
+    "culturel",
+    "capacitor"
+  ],
+  "author": "Quasernet",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^5.5.1",
+    "@capacitor/app": "^5.0.6",
+    "@capacitor/core": "^5.5.1",
+    "@capacitor/filesystem": "^5.1.4",
+    "@capacitor/share": "^5.0.6",
+    "@capacitor/local-notifications": "^5.0.6",
+    "@capacitor/toast": "^5.0.6"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.5.1"
+  }
+}

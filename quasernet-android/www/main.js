@@ -1174,11 +1174,6 @@ render();
 // AUTH STATE CHANGE
 if (firebaseInitialized) {
     auth.onAuthStateChanged(async function(user) {
-        // Ne traiter que si le mode cloud est choisi
-        if (state.mode !== 'cloud') {
-            return;
-        }
-
         state.user = user;
         state.authLoading = false;
         state.authError = null;
@@ -1218,6 +1213,9 @@ if (firebaseInitialized) {
         }
         render();
     });
+} else {
+    state.authLoading = false;
+    render();
 }
 
 // ========== DRAG & DROP PILE ==========
