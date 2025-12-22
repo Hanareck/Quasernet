@@ -25,15 +25,19 @@
 }
 .header-modern .header-actions { position: absolute; right: 2rem; top: 2rem; }
 .header-fr {
-    background: transparent;
+    background: var(--bg-primary);
     color: var(--text-primary);
     padding: 1rem 2rem 0.8rem 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 0.5rem;
-    position: relative;
+    margin-bottom: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
 }
 .header-fr .header-actions { position: absolute; right: 2rem; }
 .header-logo-zone {
@@ -45,6 +49,7 @@
     height: 80px;
     width: auto;
     object-fit: contain;
+    transition: height 0.3s ease;
 }
 .header-logo-icone {
     font-size: 1.75rem;
@@ -89,8 +94,48 @@
     font-size: 1rem;
 }
 
+/* Header scrollé - état réduit */
+.header-fr.scrolled {
+    padding: 0.3rem 2rem 0.3rem 2rem;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-fr.scrolled .header-logo-img {
+    height: 40px;
+    transition: height 0.3s ease;
+}
+
+.header-fr.scrolled .header-user-pseudo {
+    font-size: 0.85rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.header-fr.scrolled .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+}
+
+.header-fr.scrolled .header-user-zone {
+    gap: 0.5rem;
+}
+
 @media (max-width: 700px) {
     .header-fr { flex-direction: column; align-items: flex-start; padding: 1.2rem 1rem 0.8rem 1rem; }
     .header-user-zone { margin-top: 1rem; }
     .header-logo-img { height: 65px; }
+
+    .header-fr.scrolled {
+        padding: 0.3rem 1rem 0.3rem 1rem;
+    }
+
+    .header-fr.scrolled .header-logo-img {
+        height: 35px;
+    }
+
+    .header-fr.scrolled .header-user-zone {
+        margin-top: 0.5rem;
+    }
 }

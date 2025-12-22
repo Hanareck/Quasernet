@@ -189,12 +189,18 @@ function renderPile() {
         html += renderModalPile();
     }
 
+    // Modal de note si active
+    if (state.modalNote) {
+        html += renderModalNote();
+    }
+
     return html;
 }
 
 function renderPileItem(entree, enCours, colonneKey) {
     var categorieInfo = CATEGORIES[entree.categorie];
     var section = enCours ? 'En cours de decouverte' : 'A decouvrir';
+    var estLivre = entree.categorie === 'livre';
 
     return '<div class="pile-item ' + (enCours ? 'en-cours' : '') + '" ' +
         'draggable="true" ' +
@@ -216,6 +222,9 @@ function renderPileItem(entree, enCours, colonneKey) {
         '<div class="pile-item-info">' +
             '<div class="pile-item-titre">' + escapeHtml(entree.titre) + '</div>' +
             (entree.auteur ? '<div class="pile-item-auteur">' + escapeHtml(entree.auteur) + '</div>' : '') +
+            (enCours && estLivre && entree.dateDebutLecture ?
+                '<div class="pile-item-date-debut">Debut : ' + formatDate(entree.dateDebutLecture) + '</div>'
+            : '') +
             (enCours ? '<span class="pile-item-badge en-cours">En cours</span>' : '') +
         '</div>' +
         (enCours ?
@@ -267,6 +276,41 @@ function renderModalPile() {
                         '<div class="modal-pile-item-select">→</div>' +
                     '</div>';
                 }).join('') +
+            '</div>' +
+        '</div>' +
+    '</div>';
+}
+
+function renderModalNote() {
+    var modal = state.modalNote;
+    var entree = modal.entree;
+    var noteSelectionnee = modal.noteSelectionnee || 0;
+
+    return '<div class="modal-overlay" onclick="fermerModalNote()">' +
+        '<div class="modal-note" onclick="event.stopPropagation()">' +
+            '<div class="modal-note-header">' +
+                '<h3 class="modal-note-titre">🎯 Quelle note donnez-vous ?</h3>' +
+            '</div>' +
+            '<div class="modal-note-entree">' +
+                '<div class="modal-note-entree-couverture">' +
+                    (entree.couverture
+                        ? '<img src="' + escapeHtml(entree.couverture) + '" alt="Couverture">'
+                        : '<div class="modal-note-placeholder">' + (CATEGORIES[entree.categorie]?.icone || '✨') + '</div>'
+                    ) +
+                '</div>' +
+                '<div class="modal-note-entree-info">' +
+                    '<div class="modal-note-entree-titre">' + escapeHtml(entree.titre) + '</div>' +
+                    (entree.auteur ? '<div class="modal-note-entree-auteur">' + escapeHtml(entree.auteur) + '</div>' : '') +
+                '</div>' +
+            '</div>' +
+            '<div class="modal-note-selecteur">' +
+                [1, 2, 3, 4, 5].map(function(note) {
+                    return '<button class="modal-note-etoile ' + (note <= noteSelectionnee ? 'active' : '') + '" onclick="selectionnerNote(' + note + ')" title="' + note + ' etoile' + (note > 1 ? 's' : '') + '">⭐</button>';
+                }).join('') +
+            '</div>' +
+            '<div class="modal-note-actions">' +
+                '<button class="btn-modal-note-valider" onclick="validerNote()" ' + (noteSelectionnee === 0 ? 'disabled' : '') + '>✓ Valider la note</button>' +
+                '<button class="btn-modal-note-passer" onclick="passerNote()">Passer sans noter</button>' +
             '</div>' +
         '</div>' +
     '</div>';
@@ -331,28 +375,116 @@ window.changerStatutEnCours = function(entreeId) {
         return e.statutLecture === 'A decouvrir' && colonnes[colonneKey].filtre(e);
     });
 
-    if (entreesADecouvrir.length === 0) {
-        // Aucun item a decouvrir, juste passer a "Decouvert"
-        entree.statutLecture = 'Decouvert';
-        if (!entree.dateDecouverte) {
-            entree.dateDecouverte = new Date().toISOString().split('T')[0];
-        }
-        sauvegarderEntree(entree);
-        afficherToast('Statut mis a jour');
-    } else {
-        // Afficher modal de selection
-        state.modalPile = {
-            entreeFinale: entree,
-            entreesDisponibles: entreesADecouvrir,
-            colonneNom: colonnes[colonneKey].nom
-        };
-        render();
-    }
+    // Ouvrir d'abord la modal de note
+    state.modalNote = {
+        entree: entree,
+        noteSelectionnee: entree.note || 0,
+        entreesADecouvrir: entreesADecouvrir,
+        colonneKey: colonneKey,
+        colonneNom: colonnes[colonneKey].nom
+    };
+    render();
 };
 
 window.fermerModalPile = function() {
     state.modalPile = null;
     render();
+};
+
+// === Fonctions pour la modal de note ===
+
+window.fermerModalNote = function() {
+    state.modalNote = null;
+    render();
+};
+
+window.selectionnerNote = function(note) {
+    if (!state.modalNote) return;
+    state.modalNote.noteSelectionnee = note;
+    render();
+};
+
+window.validerNote = function() {
+    if (!state.modalNote || state.modalNote.noteSelectionnee === 0) return;
+
+    var entree = state.modalNote.entree;
+    var entreesADecouvrir = state.modalNote.entreesADecouvrir;
+    var colonneKey = state.modalNote.colonneKey;
+    var colonneNom = state.modalNote.colonneNom;
+
+    // Mettre a jour la note et le statut
+    entree.note = state.modalNote.noteSelectionnee;
+    entree.statutLecture = 'Decouvert';
+    if (!entree.dateDecouverte) {
+        entree.dateDecouverte = new Date().toISOString().split('T')[0];
+    }
+
+    // Sauvegarder l'entree
+    state.syncing = true;
+    state.modalNote = null;
+    render();
+
+    sauvegarderEntree(entree).then(function() {
+        state.syncing = false;
+
+        // Maintenant demander si on veut selectionner un prochain produit
+        if (entreesADecouvrir.length > 0) {
+            state.modalPile = {
+                entreeFinale: entree,
+                entreesDisponibles: entreesADecouvrir,
+                colonneNom: colonneNom
+            };
+        } else {
+            afficherToast('Note enregistree !');
+        }
+        render();
+    }).catch(function(error) {
+        console.error('Erreur sauvegarde:', error);
+        state.syncing = false;
+        afficherToast('Erreur de sauvegarde');
+        render();
+    });
+};
+
+window.passerNote = function() {
+    if (!state.modalNote) return;
+
+    var entree = state.modalNote.entree;
+    var entreesADecouvrir = state.modalNote.entreesADecouvrir;
+    var colonneKey = state.modalNote.colonneKey;
+    var colonneNom = state.modalNote.colonneNom;
+
+    // Passer a Decouvert sans note
+    entree.statutLecture = 'Decouvert';
+    if (!entree.dateDecouverte) {
+        entree.dateDecouverte = new Date().toISOString().split('T')[0];
+    }
+
+    // Sauvegarder l'entree
+    state.syncing = true;
+    state.modalNote = null;
+    render();
+
+    sauvegarderEntree(entree).then(function() {
+        state.syncing = false;
+
+        // Maintenant demander si on veut selectionner un prochain produit
+        if (entreesADecouvrir.length > 0) {
+            state.modalPile = {
+                entreeFinale: entree,
+                entreesDisponibles: entreesADecouvrir,
+                colonneNom: colonneNom
+            };
+        } else {
+            afficherToast('Marque comme decouvert');
+        }
+        render();
+    }).catch(function(error) {
+        console.error('Erreur sauvegarde:', error);
+        state.syncing = false;
+        afficherToast('Erreur de sauvegarde');
+        render();
+    });
 };
 
 window.selectionnerEntreeAleatoire = function() {
@@ -369,27 +501,22 @@ window.selectionnerEntreePile = function(entreeId) {
 function validerSelectionPile(entreeId) {
     if (!state.modalPile) return;
 
-    var entreeFinale = state.modalPile.entreeFinale;
     var entreeSelectionnee = state.entrees.find(function(e) { return e.id === entreeId; });
+    if (!entreeSelectionnee) return;
 
-    if (!entreeSelectionnee || !entreeFinale) return;
-
-    // Mettre a jour les statuts
-    entreeFinale.statutLecture = 'Decouvert';
-    if (!entreeFinale.dateDecouverte) {
-        entreeFinale.dateDecouverte = new Date().toISOString().split('T')[0];
-    }
-
+    // Mettre a jour le statut de l'entree selectionnee
     entreeSelectionnee.statutLecture = 'En cours de decouverte';
 
-    // Sauvegarder les deux entrees
+    // Si c'est un livre et qu'il n'a pas de date de debut, mettre la date du jour
+    if (entreeSelectionnee.categorie === 'livre' && !entreeSelectionnee.dateDebutLecture) {
+        entreeSelectionnee.dateDebutLecture = new Date().toISOString().split('T')[0];
+    }
+
+    // Sauvegarder l'entree
     state.syncing = true;
     render();
 
-    Promise.all([
-        sauvegarderEntree(entreeFinale),
-        sauvegarderEntree(entreeSelectionnee)
-    ]).then(function() {
+    sauvegarderEntree(entreeSelectionnee).then(function() {
         state.modalPile = null;
         state.syncing = false;
         afficherToast('Pile mise a jour !');
@@ -405,28 +532,11 @@ function validerSelectionPile(entreeId) {
 window.neRienSelectionner = function() {
     if (!state.modalPile) return;
 
-    var entreeFinale = state.modalPile.entreeFinale;
-    if (!entreeFinale) return;
-
-    entreeFinale.statutLecture = 'Decouvert';
-    if (!entreeFinale.dateDecouverte) {
-        entreeFinale.dateDecouverte = new Date().toISOString().split('T')[0];
-    }
-
-    state.syncing = true;
+    // L'entree a deja ete marquee comme "Decouvert" dans la modal de note
+    // On ferme juste la modal sans rien faire de plus
+    state.modalPile = null;
+    afficherToast('Aucune selection');
     render();
-
-    sauvegarderEntree(entreeFinale).then(function() {
-        state.modalPile = null;
-        state.syncing = false;
-        afficherToast('Marque comme decouvert');
-        render();
-    }).catch(function(error) {
-        console.error('Erreur sauvegarde:', error);
-        state.syncing = false;
-        afficherToast('Erreur de sauvegarde');
-        render();
-    });
 };
 
 // === Fonctions pour sections pliables ===
@@ -516,6 +626,11 @@ function ajouterEnCoursModal(entreeId) {
 
     // Passer l'item en "En cours de decouverte"
     entreeSelectionnee.statutLecture = 'En cours de decouverte';
+
+    // Si c'est un livre et qu'il n'a pas de date de debut, mettre la date du jour
+    if (entreeSelectionnee.categorie === 'livre' && !entreeSelectionnee.dateDebutLecture) {
+        entreeSelectionnee.dateDebutLecture = new Date().toISOString().split('T')[0];
+    }
 
     state.syncing = true;
     render();

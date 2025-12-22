@@ -3,6 +3,7 @@ function renderFormulaire() {
     var estADecouvrir = f.statutLecture === 'A decouvrir';
     var estEnCours = f.statutLecture === 'En cours de decouverte';
     var cacherDates = estADecouvrir || estEnCours;
+    var cacherDateDebut = estADecouvrir; // La date de debut est visible en cours de lecture
     var statutsPossession = Array.isArray(f.statutPossession) ? f.statutPossession : (f.statutPossession ? [f.statutPossession] : []);
     var estEmprunte = statutsPossession.indexOf('Emprunte') !== -1;
     var modeRapide = state.modeAjoutRapide && !state.modeEdition;
@@ -238,7 +239,7 @@ function renderFormulaire() {
                 ) +
                 (modeRapide ? '' :
                 (f.categorie === 'livre' ?
-                    '<div class="champ-groupe' + (cacherDates ? ' hidden' : '') + '">' +
+                    '<div class="champ-groupe' + (cacherDateDebut ? ' hidden' : '') + '">' +
                         '<label class="label" for="form-date-debut-lecture">Date de début de lecture</label>' +
                         '<input id="form-date-debut-lecture" type="date" class="input" value="' + (f.dateDebutLecture || '') + '" onchange="updateForm(\'dateDebutLecture\',this.value)">' +
                     '</div>'
@@ -277,6 +278,9 @@ function renderFormulaire() {
                 '</div>'
                 ) +
                 '<button class="btn-soumettre" type="submit" onclick="event.preventDefault();soumettreFormulaire()"' + (state.syncing ? ' disabled' : '') + '>' + (state.modeEdition ? 'Enregistrer' : (modeRapide ? '+ Ajouter et continuer' : 'Ajouter')) + '</button>' +
+                (state.modeEdition && state.groupes && state.groupes.length > 0 && state.entreeSelectionnee ?
+                    '<button class="btn-partager-form" type="button" onclick="ouvrirModalPartagerGroupe(' + JSON.stringify(state.entreeSelectionnee) + ')">📤 Partager dans un groupe</button>'
+                : '') +
                 (modeRapide && state.vueSource === 'pile' && state.entreesAjouteesRapide.length > 0 ?
                     '<button class="btn-terminer-ajout-rapide" type="button" onclick="terminerAjoutRapide()">✓ Terminer (' + state.entreesAjouteesRapide.length + ' ajout' + (state.entreesAjouteesRapide.length > 1 ? 's' : '') + ')</button>'
                 : '') +

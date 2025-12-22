@@ -41,6 +41,9 @@ function renderDetail() {
             '<button class="btn-retour" onclick="retourListe()">← Retour</button>' +
             '<div class="detail-actions">' +
                 '<button class="btn-modifier" onclick="ouvrirModification(\'' + e.id + '\')">✏️ Modifier</button>' +
+                (state.groupes && state.groupes.length > 0 ?
+                    '<button class="btn-partager" onclick="ouvrirModalPartagerGroupe(' + JSON.stringify(e) + ')">📤 Partager</button>' :
+                    '') +
                 '<button class="btn-supprimer-header" onclick="supprimerEntree(\'' + e.id + '\')">🗑️ Supprimer</button>' +
             '</div>' +
         '</div>' +

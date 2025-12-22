@@ -15,6 +15,8 @@ function renderApp() {
     else if (state.vue === 'social') contenu = renderSocial();
     else if (state.vue === 'catalogueAmi') contenu = renderCatalogueAmi();
     else if (state.vue === 'detailAmi' && state.entreeAmiSelectionnee) contenu = renderDetailAmi();
+    else if (state.vue === 'detailGroupe') contenu = renderDetailGroupe();
+    else if (state.vue === 'detailPostGroupe') contenu = renderDetailPostGroupe();
     else if (state.vue === 'alertes') contenu = renderAlertes();
     else if (state.vue === 'contact') contenu = renderContact();
     else if (state.vue === 'importExport') contenu = renderImportExport();
@@ -76,6 +78,11 @@ function renderApp() {
         (state.vue === 'pile' ? '<button class="btn-ajouter btn-ajouter-fixed" onclick="ouvrirAjoutRapideDecouvrir()" tabindex="0"><span style="font-size:1.25rem">+</span> Ajout rapide</button>' : '') +
         renderModalDoublons() +
         renderModalRaccourcis() +
+        renderModalCreerGroupe() +
+        renderModalRejoindreGroupe() +
+        renderModalMembresGroupe() +
+        renderModalGestionGroupe() +
+        renderModalPartagerGroupe() +
         (state.toast ? '<div class="toast" role="status" aria-live="polite">' + state.toast + '</div>' : '') +
         footer;
 }

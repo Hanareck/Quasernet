@@ -498,7 +498,15 @@ window.resetFiltreTags = function() {
     render();
 };
 
-window.updateForm = function(k, v) { state.formulaire[k] = v; };
+window.updateForm = function(k, v) {
+    state.formulaire[k] = v;
+
+    // Si on passe un livre en "En cours de decouverte" et qu'il n'a pas de date de debut, mettre la date du jour
+    if (k === 'statutLecture' && v === 'En cours de decouverte' && state.formulaire.categorie === 'livre' && !state.formulaire.dateDebutLecture) {
+        state.formulaire.dateDebutLecture = new Date().toISOString().split('T')[0];
+        render();
+    }
+};
 window.setNote = function(n) { state.formulaire.note = n; render(); };
 window.voirDetail = function(id) {
     state.entreeSelectionnee = state.entrees.find(function(e) { return e.id === id; });
@@ -1201,14 +1209,18 @@ if (firebaseInitialized) {
             }
             chargerEntrees();
             chargerAmis();
+            chargerGroupes();
         } else {
             state.entrees = [];
             state.amis = [];
+            state.groupes = [];
             state.fil = [];
             state.notifications = [];
             state.userPseudo = null;
             state.catalogueAmi = null;
             state.entreeAmiSelectionnee = null;
+            state.groupeActif = null;
+            state.postGroupeSelectionne = null;
             state.journalStats = {};
         }
         render();

@@ -1,5 +1,37 @@
 /* Navigation Styles - Journal Culturel v8 */
-.navigation { display: flex; gap: 0.5rem; padding: 0.75rem 2rem; background: var(--nav-bg); overflow-x: auto; overflow-y: visible; border-bottom: 1px solid var(--border-color); transition: background 0.3s; }
+.navigation {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background: var(--nav-bg);
+    overflow-x: auto;
+    overflow-y: visible;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 97px; /* Hauteur du header non scrollé */
+    z-index: 99;
+}
+
+/* Navigation scrollée */
+.navigation.scrolled {
+    top: 47px; /* Hauteur du header scrollé */
+    padding: 0.4rem 2rem;
+    background: var(--bg-card);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.navigation.scrolled .onglet {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
+}
+
+.navigation.scrolled .badge-notif {
+    min-width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+    padding: 0 5px;
+}
 .onglet { padding: 0.5rem 0.875rem; border: none; background: transparent; border-radius: 50px; cursor: pointer; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: all 0.2s ease; white-space: nowrap; font-family: 'Inter', sans-serif; }
 .onglet:hover { background: var(--bg-hover); }
 .onglet.actif { background: var(--accent-primary); color: white; }
@@ -78,3 +110,16 @@
 /* Badge notifications */
 .badge-notif { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; margin-left: 6px; background: #ff4444; color: white; border-radius: 10px; font-size: 0.7rem; font-weight: 600; line-height: 1; }
 .onglet.actif .badge-notif { background: rgba(255, 255, 255, 0.3); }
+
+/* Responsive */
+@media (max-width: 700px) {
+    .navigation {
+        padding: 0.75rem 1rem;
+    }
+
+    .navigation.scrolled {
+        padding: 0.4rem 1rem;
+        /* Ajustement pour mobile avec header en colonne */
+        top: auto;
+    }
+}
